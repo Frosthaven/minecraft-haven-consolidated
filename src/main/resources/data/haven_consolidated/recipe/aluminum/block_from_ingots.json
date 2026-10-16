@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:ingots/aluminum"
+    }
+  },
+  "result": {
+    "id": "haven_consolidated:aluminum_block"
+  }
+}

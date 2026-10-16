@@ -1,0 +1,16 @@
+{
+  "metal": "wood",
+  "name": "Wood",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:wood_dust",
+      "replaces": [
+        "mekanism:sawdust",
+        "createdieselgenerators:wood_chip"
+      ],
+      "art": "mekanism:sawdust"
+    }
+  ]
+}

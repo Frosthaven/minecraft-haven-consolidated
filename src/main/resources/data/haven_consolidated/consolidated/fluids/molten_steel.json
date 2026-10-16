@@ -1,0 +1,13 @@
+{
+  "fluid": "molten_steel",
+  "name": "Molten Steel",
+  "kind": "molten",
+  "id": "haven_consolidated:molten_steel",
+  "flowing": "haven_consolidated:flowing_molten_steel",
+  "bucket": "haven_consolidated:molten_steel_bucket",
+  "replaces": [
+    "tfmg:molten_steel",
+    "createbigcannons:molten_steel"
+  ],
+  "art": "tfmg:molten_steel"
+}

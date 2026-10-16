@@ -1,0 +1,3 @@
+{"metal": "obsidian", "name": "Obsidian", "art": ["create", "mekanism"], "color": "#2b1d3a",
+ "names": {"dust": "Powdered Obsidian"},
+ "forms": {"dust": ["create:powdered_obsidian", "mekanism:dust_obsidian"]}}

@@ -1,0 +1,45 @@
+{
+  "metal": "bronze",
+  "name": "Bronze",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:bronze_ingot",
+      "replaces": [
+        "createbigcannons:bronze_ingot",
+        "mekanism:ingot_bronze"
+      ],
+      "art": "createbigcannons:bronze_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:bronze_nugget",
+      "replaces": [
+        "createbigcannons:bronze_scrap",
+        "mekanism:nugget_bronze"
+      ],
+      "art": "createbigcannons:bronze_scrap"
+    },
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:bronze_dust",
+      "replaces": [
+        "mekanism:dust_bronze"
+      ],
+      "art": "mekanism:dust_bronze"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:bronze_block",
+      "replaces": [
+        "createbigcannons:bronze_block",
+        "mekanism:block_bronze"
+      ],
+      "art": "createbigcannons:bronze_block"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "metal": "diamond",
+  "name": "Diamond",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:diamond_dust",
+      "replaces": [
+        "mekanism:dust_diamond",
+        "createaddition:diamond_grit"
+      ],
+      "art": "mekanism:dust_diamond"
+    }
+  ]
+}

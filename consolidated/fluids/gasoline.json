@@ -1,0 +1,2 @@
+{"fluid": "gasoline", "name": "Gasoline", "kind": "oil", "tags": ["c:gasoline"],
+ "replaces": ["tfmg:gasoline", "createdieselgenerators:gasoline"]}

@@ -1,0 +1,15 @@
+{
+  "fluid": "oxygen",
+  "name": "Oxygen",
+  "kind": "gas",
+  "id": "haven_consolidated:oxygen",
+  "flowing": "haven_consolidated:flowing_oxygen",
+  "bucket": "haven_consolidated:oxygen_bucket",
+  "replaces": [
+    "ad_astra:oxygen",
+    "mekanism:oxygen",
+    "create_submarine:oxygen",
+    "createbb:oxygen"
+  ],
+  "art": "ad_astra:oxygen"
+}

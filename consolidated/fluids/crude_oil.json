@@ -1,0 +1,2 @@
+{"fluid": "crude_oil", "name": "Crude Oil", "kind": "oil", "tags": ["c:crude_oil", "c:oil"],
+ "replaces": ["tfmg:crude_oil", "createdieselgenerators:crude_oil", "ad_astra:oil"]}

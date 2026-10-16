@@ -1,0 +1,7 @@
+{"metal": "bronze", "name": "Bronze", "art": ["createbigcannons", "mekanism"], "color": "#b8793a", "tool": "stone",
+ "forms": {
+  "ingot": ["createbigcannons:bronze_ingot", "mekanism:ingot_bronze"],
+  "nugget": ["createbigcannons:bronze_scrap", "mekanism:nugget_bronze"],
+  "dust": ["mekanism:dust_bronze"],
+  "block": ["createbigcannons:bronze_block", "mekanism:block_bronze"]
+ }}

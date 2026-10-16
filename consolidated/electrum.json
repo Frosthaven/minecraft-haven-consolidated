@@ -1,0 +1,2 @@
+{"metal": "electrum", "name": "Electrum", "art": ["createaddition", "electroenergetics"], "color": "#e2c25a",
+ "forms": {"wire": ["createaddition:electrum_wire", "electroenergetics:electrum_wire"]}}

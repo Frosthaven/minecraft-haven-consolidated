@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:oxygen",
+    "haven_consolidated:flowing_oxygen"
+  ]
+}

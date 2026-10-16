@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/cast_iron"
+    }
+  ],
+  "result": {
+    "id": "haven_consolidated:cast_iron_ingot",
+    "count": 9
+  }
+}

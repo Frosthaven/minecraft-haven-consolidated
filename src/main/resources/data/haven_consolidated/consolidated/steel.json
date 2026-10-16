@@ -1,0 +1,75 @@
+{
+  "metal": "steel",
+  "name": "Steel",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:steel_ingot",
+      "replaces": [
+        "cgs:steel_ingot",
+        "tfmg:steel_ingot",
+        "createbigcannons:steel_ingot",
+        "ad_astra:steel_ingot",
+        "mekanism:ingot_steel"
+      ],
+      "art": "cgs:steel_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:steel_nugget",
+      "replaces": [
+        "cgs:steel_nugget",
+        "tfmg:steel_nugget",
+        "createbigcannons:steel_scrap",
+        "ad_astra:steel_nugget",
+        "mekanism:nugget_steel"
+      ],
+      "art": "cgs:steel_nugget"
+    },
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:steel_dust",
+      "replaces": [
+        "mekanism:dust_steel"
+      ],
+      "art": "mekanism:dust_steel"
+    },
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:steel_sheet",
+      "replaces": [
+        "cgs:steel_sheet",
+        "tfmg:heavy_plate",
+        "ad_astra:steel_plate"
+      ],
+      "art": "cgs:steel_sheet"
+    },
+    {
+      "form": "rod",
+      "kind": "item",
+      "id": "haven_consolidated:steel_rod",
+      "replaces": [
+        "tfmg:rebar",
+        "ad_astra:steel_rod"
+      ],
+      "art": "tfmg:rebar"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:steel_block",
+      "replaces": [
+        "cgs:steel_block",
+        "tfmg:steel_block",
+        "createbigcannons:steel_block",
+        "ad_astra:steel_block",
+        "mekanism:block_steel"
+      ],
+      "art": "cgs:steel_block"
+    }
+  ]
+}

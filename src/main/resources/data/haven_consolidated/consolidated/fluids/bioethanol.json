@@ -1,0 +1,14 @@
+{
+  "fluid": "bioethanol",
+  "name": "Bioethanol",
+  "kind": "liquid",
+  "id": "haven_consolidated:bioethanol",
+  "flowing": "haven_consolidated:flowing_bioethanol",
+  "bucket": "haven_consolidated:bioethanol_bucket",
+  "replaces": [
+    "createaddition:bioethanol",
+    "mekanismgenerators:bioethanol",
+    "createdieselgenerators:ethanol"
+  ],
+  "art": "createaddition:bioethanol"
+}

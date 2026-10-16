@@ -1,5 +1,32 @@
 {
   "metals": [
-    "lead"
+    "aluminum",
+    "bronze",
+    "cast_iron",
+    "charcoal",
+    "copper",
+    "diamond",
+    "electrum",
+    "ender_pearl",
+    "iron",
+    "lead",
+    "nickel",
+    "obsidian",
+    "saltpeter",
+    "steel",
+    "sulfur",
+    "wood",
+    "zinc"
+  ],
+  "fluids": [
+    "bioethanol",
+    "crude_oil",
+    "diesel",
+    "dragon_breath",
+    "gasoline",
+    "hydrogen",
+    "molten_steel",
+    "oxygen",
+    "plant_oil"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "fluid": "diesel",
+  "name": "Diesel",
+  "kind": "oil",
+  "id": "haven_consolidated:diesel",
+  "flowing": "haven_consolidated:flowing_diesel",
+  "bucket": "haven_consolidated:diesel_bucket",
+  "replaces": [
+    "tfmg:diesel",
+    "createdieselgenerators:diesel"
+  ],
+  "art": "tfmg:diesel"
+}

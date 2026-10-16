@@ -1,0 +1,2 @@
+{"fluid": "oxygen", "name": "Oxygen", "kind": "gas", "tags": ["c:oxygen"],
+ "replaces": ["ad_astra:oxygen", "mekanism:oxygen", "create_submarine:oxygen", "createbb:oxygen"]}

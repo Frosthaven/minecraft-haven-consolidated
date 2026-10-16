@@ -19,18 +19,28 @@ Required on the server and on every client. Nothing to configure.
 **[Latest build](https://github.com/Frosthaven/minecraft-haven-consolidated/releases/latest)**: drop the jar into
 `mods/` on the server and in each client instance. The Haven pack delivers it by itself (`mods/haven-consolidated.pw.toml`).
 
-## Metals
+## What is consolidated
 
-| Metal | Forms | Replaces |
+| Chain | Forms | Replaces |
 |---|---|---|
 | Lead | ingot, nugget, raw, dust, sheet, ore, deepslate ore, block, raw block | Mekanism, Create: The Factory Must Grow, Create: Gunsmithing |
+| Nickel | ingot, nugget, raw, sheet, ore, deepslate ore, moon ore, block, raw block | TFMG, Creating Space |
+| Steel | ingot, nugget, dust, sheet, rod, block | Gunsmithing, TFMG, Create Big Cannons, Ad Astra, Mekanism |
+| Aluminum | ingot, nugget, raw, sheet, wire, moon ore, block, raw block | TFMG, Creating Space |
+| Bronze | ingot, nugget, dust, block | Create Big Cannons, Mekanism |
+| Cast iron | ingot, nugget, sheet, block | Create Big Cannons, TFMG |
+| Sulfur | sulfur, ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
+| Single forms | charcoal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
+| Fluids | crude oil, diesel, gasoline, plant oil, bioethanol, dragon's breath, molten steel, hydrogen, oxygen | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad |
 
-`consolidated/<metal>.json` lists each metal's forms and the ids they replace; ids of mods that are not installed are
-skipped, so the same jar works in any pack. Our items look like the source mods' own (Create: Gunsmithing first,
-then the others for the forms it lacks): they use those mods' model files, so the art stays theirs.
-`uv run --with pillow python -I tools/gen.py --mods <mods folder>` turns the metal files into the mod's items,
-models, tags, loot tables and recipes (all committed). See CLAUDE.md for how the replacement works and how to add a
-metal.
+`consolidated/<metal>.json` and `consolidated/fluids/<fluid>.json` list what each one replaces; ids of mods that are
+not installed are skipped, so the same jar works in any pack. Our items look like the source mods' own (Create:
+Gunsmithing first, then the others for the forms it lacks): they use those mods' model files, and our fluids borrow
+the source fluid's textures at runtime, so the art stays theirs.
+`uv run --with pillow python -I tools/gen.py --mods <mods folder>` turns the data files into the mod's items,
+models, tags, loot tables and recipes (all committed). See CLAUDE.md for how the replacement works and how to add
+one. Mekanism's gases are chemicals, a separate system, and stay as they are; only their liquid forms are
+consolidated.
 
 ## Commands
 

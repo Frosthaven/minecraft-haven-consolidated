@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#c:ores/lead"
+    "#c:ores/aluminum",
+    "#c:ores/lead",
+    "#c:ores/nickel",
+    "#c:ores/sulfur"
   ]
 }

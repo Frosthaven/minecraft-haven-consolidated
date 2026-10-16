@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:nuggets/cast_iron"
+    }
+  },
+  "result": {
+    "id": "haven_consolidated:cast_iron_ingot"
+  }
+}

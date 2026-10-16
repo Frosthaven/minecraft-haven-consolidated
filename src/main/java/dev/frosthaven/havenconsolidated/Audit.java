@@ -28,6 +28,8 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 
 import java.io.IOException;
@@ -127,8 +129,17 @@ public final class Audit {
                 failed.add(e.getKey() + " -> " + got);
             }
         }
+        for (Map.Entry<ResourceLocation, ResourceLocation> e : Aliases.fluids().entrySet()) {
+            ResourceLocation got = BuiltInRegistries.FLUID.getHolder(e.getKey()).map(h -> h.key().location()).orElse(null);
+            if (e.getValue().equals(got)) {
+                ok++;
+            } else {
+                failed.add(e.getKey() + " -> " + got);
+            }
+        }
         o.addProperty("items", Aliases.items().size());
         o.addProperty("blocks", Aliases.blocks().size());
+        o.addProperty("fluids", Aliases.fluids().size());
         o.addProperty("resolve_ok", ok);
         o.add("resolve_failed", failed);
         o.add("absent_mods_ids", strings(Aliases.absent()));
@@ -195,6 +206,7 @@ public final class Audit {
         JsonObject o = new JsonObject();
         Map<String, Integer> oldBlocks = new TreeMap<>(), ourBlocks = new TreeMap<>();
         Map<String, Integer> oldItems = new TreeMap<>(), ourItems = new TreeMap<>();
+        Map<String, Integer> oldFluids = new TreeMap<>(), ourFluids = new TreeMap<>();   // in mB, tanks in loaded chunks
         Set<ResourceLocation> oldBlockIds = Aliases.blocks().keySet();
         int chunks = 0, unsaved = 0;
         for (ServerLevel level : server.getAllLevels()) {
@@ -240,11 +252,25 @@ public final class Audit {
                         }
                         for (Map.Entry<BlockPos, BlockEntity> e : chunk.getBlockEntities().entrySet()) {
                             IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, e.getKey(), e.getValue().getBlockState(), e.getValue(), null);
-                            if (handler == null) {
-                                continue;
+                            if (handler != null) {
+                                for (int i = 0; i < handler.getSlots(); i++) {
+                                    count(List.of(handler.getStackInSlot(i)), oldItems, ourItems);
+                                }
                             }
-                            for (int i = 0; i < handler.getSlots(); i++) {
-                                count(List.of(handler.getStackInSlot(i)), oldItems, ourItems);
+                            IFluidHandler tank = level.getCapability(Capabilities.FluidHandler.BLOCK, e.getKey(), e.getValue().getBlockState(), e.getValue(), null);
+                            if (tank != null) {
+                                for (int i = 0; i < tank.getTanks(); i++) {
+                                    FluidStack f = tank.getFluidInTank(i);
+                                    if (f.isEmpty()) {
+                                        continue;
+                                    }
+                                    ResourceLocation id = BuiltInRegistries.FLUID.getKey(f.getFluid());
+                                    if (AliasedFluid.targetOf(f.getFluid()) != null) {
+                                        oldFluids.merge(id.toString(), f.getAmount(), Integer::sum);
+                                    } else if (Content.FLUID_BY_ID.containsKey(id)) {
+                                        ourFluids.merge(id.toString(), f.getAmount(), Integer::sum);
+                                    }
+                                }
                             }
                         }
                     }
@@ -258,6 +284,8 @@ public final class Audit {
         o.add("our_blocks", map(ourBlocks));
         o.add("old_items", map(oldItems));
         o.add("our_items", map(ourItems));
+        o.add("old_fluids_mb", map(oldFluids));
+        o.add("our_fluids_mb", map(ourFluids));
         return o;
     }
 
@@ -282,7 +310,8 @@ public final class Audit {
                 + r.getAsJsonObject("lookalike_groups").size() + " lookalike groups; world " + w.get("chunks") + " chunks ("
                 + w.get("chunks_unsaved") + " unsaved, " + w.get("chunks_marked_since_start") + " marked), old blocks "
                 + w.getAsJsonObject("old_blocks") + ", our blocks " + w.getAsJsonObject("our_blocks") + ", old items "
-                + w.getAsJsonObject("old_items") + ", our items " + w.getAsJsonObject("our_items");
+                + w.getAsJsonObject("old_items") + ", our items " + w.getAsJsonObject("our_items") + ", old fluids "
+                + w.getAsJsonObject("old_fluids_mb") + ", our fluids " + w.getAsJsonObject("our_fluids_mb");
     }
 
     private static JsonArray strings(Iterable<?> values) {

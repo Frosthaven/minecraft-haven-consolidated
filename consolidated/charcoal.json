@@ -1,0 +1,2 @@
+{"metal": "charcoal", "name": "Charcoal", "art": ["cgs", "mekanism"], "color": "#3a3230",
+ "forms": {"dust": ["cgs:charcoal_dust", "mekanism:dust_charcoal"]}}

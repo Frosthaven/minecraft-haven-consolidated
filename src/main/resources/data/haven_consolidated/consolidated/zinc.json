@@ -1,0 +1,16 @@
+{
+  "metal": "zinc",
+  "name": "Zinc",
+  "entries": [
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:zinc_sheet",
+      "replaces": [
+        "createaddition:zinc_sheet",
+        "createdeco:zinc_sheet"
+      ],
+      "art": "createaddition:zinc_sheet"
+    }
+  ]
+}

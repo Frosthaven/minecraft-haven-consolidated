@@ -1,0 +1,2 @@
+{"metal": "zinc", "name": "Zinc", "art": ["createaddition", "createdeco"], "color": "#c9d2c2",
+ "forms": {"sheet": ["createaddition:zinc_sheet", "createdeco:zinc_sheet"]}}

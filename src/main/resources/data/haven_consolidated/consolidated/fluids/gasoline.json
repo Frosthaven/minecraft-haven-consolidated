@@ -1,0 +1,13 @@
+{
+  "fluid": "gasoline",
+  "name": "Gasoline",
+  "kind": "oil",
+  "id": "haven_consolidated:gasoline",
+  "flowing": "haven_consolidated:flowing_gasoline",
+  "bucket": "haven_consolidated:gasoline_bucket",
+  "replaces": [
+    "tfmg:gasoline",
+    "createdieselgenerators:gasoline"
+  ],
+  "art": "tfmg:gasoline"
+}

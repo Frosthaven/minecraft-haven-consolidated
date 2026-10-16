@@ -1,0 +1,6 @@
+{"metal": "iron", "name": "Iron", "art": ["create", "createaddition", "ad_astra", "electroenergetics"], "color": "#d8d8d8",
+ "forms": {
+  "sheet": ["create:iron_sheet", "ad_astra:iron_plate"],
+  "rod": ["createaddition:iron_rod", "ad_astra:iron_rod"],
+  "wire": ["createaddition:iron_wire", "electroenergetics:iron_wire"]
+ }}

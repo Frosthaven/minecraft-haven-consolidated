@@ -1,0 +1,16 @@
+{
+  "metal": "charcoal",
+  "name": "Charcoal",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:charcoal_dust",
+      "replaces": [
+        "cgs:charcoal_dust",
+        "mekanism:dust_charcoal"
+      ],
+      "art": "cgs:charcoal_dust"
+    }
+  ]
+}

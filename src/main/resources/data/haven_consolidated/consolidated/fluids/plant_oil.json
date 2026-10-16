@@ -1,0 +1,14 @@
+{
+  "fluid": "plant_oil",
+  "name": "Plant Oil",
+  "kind": "oil",
+  "id": "haven_consolidated:plant_oil",
+  "flowing": "haven_consolidated:flowing_plant_oil",
+  "bucket": "haven_consolidated:plant_oil_bucket",
+  "replaces": [
+    "createdieselgenerators:plant_oil",
+    "electroenergetics:plant_oil",
+    "createaddition:seed_oil"
+  ],
+  "art": "createdieselgenerators:plant_oil"
+}

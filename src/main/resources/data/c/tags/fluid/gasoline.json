@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:gasoline",
+    "haven_consolidated:flowing_gasoline"
+  ]
+}

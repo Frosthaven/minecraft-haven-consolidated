@@ -1,0 +1,95 @@
+{
+  "metal": "nickel",
+  "name": "Nickel",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:nickel_ingot",
+      "replaces": [
+        "tfmg:nickel_ingot",
+        "creatingspace:nickel_ingot"
+      ],
+      "art": "tfmg:nickel_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:nickel_nugget",
+      "replaces": [
+        "tfmg:nickel_nugget",
+        "creatingspace:nickel_nugget"
+      ],
+      "art": "tfmg:nickel_nugget"
+    },
+    {
+      "form": "raw",
+      "kind": "item",
+      "id": "haven_consolidated:raw_nickel",
+      "replaces": [
+        "tfmg:raw_nickel",
+        "creatingspace:raw_nickel"
+      ],
+      "art": "tfmg:raw_nickel"
+    },
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:nickel_sheet",
+      "replaces": [
+        "tfmg:nickel_sheet",
+        "creatingspace:nickel_sheet"
+      ],
+      "art": "tfmg:nickel_sheet"
+    },
+    {
+      "form": "ore",
+      "kind": "ore",
+      "id": "haven_consolidated:nickel_ore",
+      "replaces": [
+        "tfmg:nickel_ore",
+        "creatingspace:nickel_ore"
+      ],
+      "art": "tfmg:nickel_ore"
+    },
+    {
+      "form": "deepslate_ore",
+      "kind": "deepslate_ore",
+      "id": "haven_consolidated:deepslate_nickel_ore",
+      "replaces": [
+        "tfmg:deepslate_nickel_ore",
+        "creatingspace:deepslate_nickel_ore"
+      ],
+      "art": "tfmg:deepslate_nickel_ore"
+    },
+    {
+      "form": "moon_ore",
+      "kind": "moon_ore",
+      "id": "haven_consolidated:moon_nickel_ore",
+      "replaces": [
+        "creatingspace:moon_nickel_ore"
+      ],
+      "art": "creatingspace:moon_nickel_ore"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:nickel_block",
+      "replaces": [
+        "tfmg:nickel_block",
+        "creatingspace:nickel_block"
+      ],
+      "art": "tfmg:nickel_block"
+    },
+    {
+      "form": "raw_block",
+      "kind": "raw_block",
+      "id": "haven_consolidated:raw_nickel_block",
+      "replaces": [
+        "tfmg:raw_nickel_block",
+        "creatingspace:raw_nickel_block"
+      ],
+      "art": "tfmg:raw_nickel_block"
+    }
+  ]
+}

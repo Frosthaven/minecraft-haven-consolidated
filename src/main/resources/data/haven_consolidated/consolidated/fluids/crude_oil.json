@@ -1,0 +1,14 @@
+{
+  "fluid": "crude_oil",
+  "name": "Crude Oil",
+  "kind": "oil",
+  "id": "haven_consolidated:crude_oil",
+  "flowing": "haven_consolidated:flowing_crude_oil",
+  "bucket": "haven_consolidated:crude_oil_bucket",
+  "replaces": [
+    "tfmg:crude_oil",
+    "createdieselgenerators:crude_oil",
+    "ad_astra:oil"
+  ],
+  "art": "tfmg:crude_oil"
+}

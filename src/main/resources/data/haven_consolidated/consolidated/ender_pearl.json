@@ -1,0 +1,16 @@
+{
+  "metal": "ender_pearl",
+  "name": "Ender Pearl",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:ender_pearl_dust",
+      "replaces": [
+        "ae2:ender_dust",
+        "garnished:crushed_ender_pearl"
+      ],
+      "art": "ae2:ender_dust"
+    }
+  ]
+}

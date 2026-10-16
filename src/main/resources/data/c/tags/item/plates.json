@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#c:plates/lead"
+    "#c:plates/aluminum",
+    "#c:plates/cast_iron",
+    "#c:plates/iron",
+    "#c:plates/lead",
+    "#c:plates/nickel",
+    "#c:plates/steel",
+    "#c:plates/zinc"
   ]
 }

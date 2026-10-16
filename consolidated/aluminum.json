@@ -1,0 +1,11 @@
+{"metal": "aluminum", "name": "Aluminum", "art": ["tfmg", "creatingspace"], "color": "#d6d8dc", "tool": "stone",
+ "forms": {
+  "ingot": ["tfmg:aluminum_ingot", "creatingspace:aluminum_ingot"],
+  "nugget": ["tfmg:aluminum_nugget", "creatingspace:aluminum_nugget"],
+  "raw": ["creatingspace:raw_aluminum"],
+  "sheet": ["tfmg:aluminum_sheet", "creatingspace:aluminum_sheet"],
+  "wire": ["tfmg:aluminum_wire"],
+  "moon_ore": ["creatingspace:moon_aluminum_ore"],
+  "block": ["tfmg:aluminum_block", "creatingspace:aluminum_block"],
+  "raw_block": ["creatingspace:raw_aluminum_block"]
+ }}

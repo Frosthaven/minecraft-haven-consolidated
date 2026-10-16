@@ -1,12 +1,15 @@
-"""Writes the mod's assets and data from consolidated/*.json: one file per metal names the forms Haven Consolidated
-owns and the other mods' ids each one replaces. Output (all committed, rewritten from scratch on every run):
+"""Writes the mod's assets and data from consolidated/*.json (metals) and consolidated/fluids/*.json: each file names
+what Haven Consolidated owns and the other mods' ids it replaces. Output (all committed, rewritten on every run):
 
-- data/haven_consolidated/consolidated/<metal>.json + index.json: what the mod registers and aliases (read at startup);
+- data/haven_consolidated/consolidated/<metal>.json, fluids/<fluid>.json, index.json: what the mod registers and
+  aliases (read at startup);
 - the look: our item uses the source mod's own model files (blockstate and item model copied as they are, so the
-  textures and parents stay in the source mod's namespace and nothing is redistributed); the metal's `art` list says
-  which mod to take first (Create: Gunsmithing by default), the others follow when it lacks a form. A form no mod
+  textures and parents stay in the source mod's namespace and nothing is redistributed); a metal's `art` list says
+  which mod to take first (Create: Gunsmithing by default), the others follow when it lacks a form. A fluid's bucket
+  takes the first source's bucket model; its textures are delegated at runtime (client/ClientFluids). A form no mod
   provides gets a sprite from tools/textures.py;
-- en_us lang, tags (c: forms, ores_in_ground, ore_rates, mineable, tool tiers), loot tables, the standard recipes.
+- en_us lang, tags (c: forms, ores_in_ground, ore_rates, mineable, tool tiers, c: fluid tags), loot tables, the
+  standard recipes (inputs by tag, results ours).
 
 Run: uv run --with pillow python -I tools/gen.py [--mods <folder with the pack's mod jars>]
 The mods folder (or $HAVEN_MODS) is where the source models are read from, e.g. a Prism instance's minecraft/mods.
@@ -35,12 +38,18 @@ FORMS = {
     "raw": ("raw_{m}", "item", "Raw {n}", "raw_materials"),
     "dust": ("{m}_dust", "item", "{n} Dust", "dusts"),
     "sheet": ("{m}_sheet", "item", "{n} Sheet", "plates"),
+    "rod": ("{m}_rod", "item", "{n} Rod", "rods"),
+    "wire": ("{m}_wire", "item", "{n} Wire", "wires"),
     "ore": ("{m}_ore", "ore", "{n} Ore", "ores"),
     "deepslate_ore": ("deepslate_{m}_ore", "deepslate_ore", "Deepslate {n} Ore", "ores"),
+    "moon_ore": ("moon_{m}_ore", "moon_ore", "Moon {n} Ore", "ores"),
+    "basalt_ore": ("{m}_basalt_ore", "basalt_ore", "{n} Basalt Ore", "ores"),
     "block": ("{m}_block", "block", "Block of {n}", "storage_blocks"),
     "raw_block": ("raw_{m}_block", "raw_block", "Block of Raw {n}", "storage_blocks"),
 }
-BLOCK_KINDS = {"ore", "deepslate_ore", "block", "raw_block"}
+ORE_KINDS = {"ore", "deepslate_ore", "moon_ore", "basalt_ore"}
+BLOCK_KINDS = ORE_KINDS | {"block", "raw_block"}
+GROUND = {"ore": "stone", "deepslate_ore": "deepslate"}
 
 
 def write(path: Path, data):
@@ -69,7 +78,7 @@ class Jars:
                 try:
                     with zipfile.ZipFile(jar) as z:
                         for n in z.namelist():
-                            if n.startswith("assets/") and (n.endswith(".json")):
+                            if n.startswith("assets/") and n.endswith(".json"):
                                 self.index.setdefault(n, jar)
                 except zipfile.BadZipFile:
                     pass
@@ -119,10 +128,11 @@ def look(form: str, kind: str, hc: str, old_ids: list, art: list, pal, jars: Jar
             write(ASSETS / "blockstates" / f"{name}.json", state)
         write(ASSETS / "models" / "item" / f"{name}.json", model)
         return source
+    sprite = form if form in textures.SPRITES else ("ore" if kind in ORE_KINDS else "ingot")
     sub = "block" if kind in BLOCK_KINDS else "item"
     png = ASSETS / "textures" / sub / f"{name}.png"
     png.parent.mkdir(parents=True, exist_ok=True)
-    textures.SPRITES[form](pal).save(png)
+    textures.SPRITES[sprite](pal).save(png)
     if kind in BLOCK_KINDS:
         write(ASSETS / "blockstates" / f"{name}.json", {"variants": {"": {"model": f"{NS}:block/{name}"}}})
         write(ASSETS / "models" / "block" / f"{name}.json",
@@ -139,23 +149,25 @@ def gen_metal(metal: dict, lang: dict, index: list, jars: Jars):
     ids = metal_ids(metal)
     pal = textures.palette(metal.get("color", "#8a8a8a"))
     art = metal.get("art", DEFAULT_ART)
+    names = metal.get("names", {})
     tool = metal.get("tool", "stone")
+    drop = ids.get(metal.get("ore_drop", "raw"))
     entries = []
     for form, hc in ids.items():
         pattern, kind, lang_pattern, folder = FORMS[form]
         name = hc.split(":")[1]
         source = look(form, kind, hc, metal["forms"][form], art, pal, jars)
         entries.append({"form": form, "kind": kind, "id": hc, "replaces": metal["forms"][form], "art": source})
+        display = names.get(form, lang_pattern.format(n=n))
         if kind in BLOCK_KINDS:
-            lang[f"block.{NS}.{name}"] = lang_pattern.format(n=n)
-            if kind in ("ore", "deepslate_ore"):
-                drop = ids.get("raw", hc)
+            lang[f"block.{NS}.{name}"] = display
+            if kind in ORE_KINDS:
                 loot = {"type": "minecraft:block", "pools": [{"rolls": 1.0, "bonus_rolls": 0.0, "entries": [
                     {"type": "minecraft:alternatives", "children": [
                         {"type": "minecraft:item", "name": hc, "conditions": [{"condition": "minecraft:match_tool",
                             "predicate": {"predicates": {"minecraft:enchantments": [
                                 {"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]},
-                        {"type": "minecraft:item", "name": drop, "functions": [
+                        {"type": "minecraft:item", "name": drop or hc, "functions": [
                             {"function": "minecraft:apply_bonus", "enchantment": "minecraft:fortune",
                              "formula": "minecraft:ore_drops"},
                             {"function": "minecraft:explosion_decay"}]}]}]}],
@@ -168,12 +180,12 @@ def gen_metal(metal: dict, lang: dict, index: list, jars: Jars):
             write(DATA / NS / "loot_table" / "blocks" / f"{name}.json", loot)
             tag("minecraft", "block", "mineable/pickaxe", [hc])
             tag("minecraft", "block", f"needs_{tool}_tool", [hc])
-            if kind in ("ore", "deepslate_ore"):
-                ground = "deepslate" if kind == "deepslate_ore" else "stone"
+            if kind in ORE_KINDS:
                 for reg in ("block", "item"):
                     tag("c", reg, f"ores/{m}", [hc])
                     tag("c", reg, "ores", [f"#c:ores/{m}"])
-                    tag("c", reg, f"ores_in_ground/{ground}", [hc])
+                    if kind in GROUND:
+                        tag("c", reg, f"ores_in_ground/{GROUND[kind]}", [hc])
                     tag("c", reg, "ore_rates/singular", [hc])
             else:
                 key = f"storage_blocks/{'raw_' if kind == 'raw_block' else ''}{m}"
@@ -181,13 +193,41 @@ def gen_metal(metal: dict, lang: dict, index: list, jars: Jars):
                     tag("c", reg, key, [hc])
                     tag("c", reg, "storage_blocks", [f"#c:{key}"])
         else:
-            lang[f"item.{NS}.{name}"] = lang_pattern.format(n=n)
+            lang[f"item.{NS}.{name}"] = display
             tag("c", "item", f"{folder}/{m}", [hc])
             tag("c", "item", folder, [f"#c:{folder}/{m}"])
     gen_recipes(m, ids)
     write(DATA / NS / "consolidated" / f"{m}.json", {"metal": m, "name": n, "entries": entries})
     index.append(m)
     print(f"{m}: " + ", ".join(f"{e['form']} <- {e['art']}" for e in entries))
+
+
+def gen_fluid(fluid: dict, lang: dict, index: list, jars: Jars):
+    f, n = fluid["fluid"], fluid["name"]
+    ours, flowing, bucket = f"{NS}:{f}", f"{NS}:flowing_{f}", f"{NS}:{f}_bucket"
+    source = "none"
+    for old in fluid["replaces"]:   # the first source whose bucket model exists lends it to our bucket
+        ns, name = old.split(":", 1)
+        model = jars.json(f"assets/{ns}/models/item/{name}_bucket.json")
+        if model:
+            write(ASSETS / "models" / "item" / f"{f}_bucket.json", model)
+            source = old
+            break
+    else:
+        write(ASSETS / "models" / "item" / f"{f}_bucket.json",
+              {"parent": "minecraft:item/generated", "textures": {"layer0": "minecraft:item/bucket"}})
+    write(ASSETS / "blockstates" / f"{f}.json", {"variants": {"": {"model": "minecraft:block/water"}}})
+    lang[f"fluid_type.{NS}.{f}"] = n
+    lang[f"block.{NS}.{f}"] = n
+    lang[f"item.{NS}.{f}_bucket"] = f"{n} Bucket"
+    for t in fluid.get("tags", [f"c:{f}"]):
+        ns, path = t.split(":", 1)
+        tag(ns, "fluid", path, [ours, flowing])
+    write(DATA / NS / "consolidated" / "fluids" / f"{f}.json",
+          {"fluid": f, "name": n, "kind": fluid.get("kind", "liquid"), "id": ours, "flowing": flowing,
+           "bucket": bucket, "replaces": fluid["replaces"], "art": source})
+    index.append(f)
+    print(f"fluid {f}: bucket <- {source}")
 
 
 def recipe(name: str, data: dict):
@@ -218,7 +258,7 @@ def gen_recipes(m: str, ids: dict):
         sources = []
         if raw:
             sources.append(("raw", f"c:raw_materials/{m}", 0.7))
-        if "ore" in ids or "deepslate_ore" in ids:
+        if any(k in ids for k in ORE_KINDS):
             sources.append(("ore", f"c:ores/{m}", 0.7))
         if dust:
             sources.append(("dust", f"c:dusts/{m}", 0.3))
@@ -242,12 +282,14 @@ def main():
     for d in (ASSETS, DATA):
         shutil.rmtree(d, ignore_errors=True)
     lang = {f"itemGroup.{NS}": "Haven Consolidated"}
-    index = []
+    metals, fluids = [], []
     for path in sorted((REPO / "consolidated").glob("*.json")):
-        gen_metal(json.loads(path.read_text(encoding="utf-8")), lang, index, jars)
+        gen_metal(json.loads(path.read_text(encoding="utf-8")), lang, metals, jars)
+    for path in sorted((REPO / "consolidated" / "fluids").glob("*.json")):
+        gen_fluid(json.loads(path.read_text(encoding="utf-8")), lang, fluids, jars)
     write(ASSETS / "lang" / "en_us.json", dict(sorted(lang.items())))
-    write(DATA / NS / "consolidated" / "index.json", {"metals": index})
-    print(f"generated {len(index)} metal(s): {', '.join(index)}")
+    write(DATA / NS / "consolidated" / "index.json", {"metals": metals, "fluids": fluids})
+    print(f"generated {len(metals)} metal(s) and {len(fluids)} fluid(s)")
 
 
 if __name__ == "__main__":

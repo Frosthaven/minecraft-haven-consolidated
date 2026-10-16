@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:dusts/steel"
+  },
+  "result": {
+    "id": "haven_consolidated:steel_ingot"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

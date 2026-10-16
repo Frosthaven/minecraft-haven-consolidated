@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:ingots/bronze"
+    }
+  ],
+  "result": {
+    "id": "haven_consolidated:bronze_nugget",
+    "count": 9
+  }
+}

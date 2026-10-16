@@ -1,0 +1,7 @@
+{"metal": "cast_iron", "name": "Cast Iron", "art": ["createbigcannons", "tfmg"], "color": "#454a52", "tool": "stone",
+ "forms": {
+  "ingot": ["createbigcannons:cast_iron_ingot", "tfmg:cast_iron_ingot"],
+  "nugget": ["createbigcannons:cast_iron_nugget", "tfmg:cast_iron_nugget"],
+  "sheet": ["tfmg:cast_iron_sheet"],
+  "block": ["createbigcannons:cast_iron_block", "tfmg:cast_iron_block"]
+ }}

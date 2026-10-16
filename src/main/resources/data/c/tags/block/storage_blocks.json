@@ -1,7 +1,14 @@
 {
   "replace": false,
   "values": [
+    "#c:storage_blocks/aluminum",
+    "#c:storage_blocks/raw_aluminum",
+    "#c:storage_blocks/bronze",
+    "#c:storage_blocks/cast_iron",
     "#c:storage_blocks/lead",
-    "#c:storage_blocks/raw_lead"
+    "#c:storage_blocks/raw_lead",
+    "#c:storage_blocks/nickel",
+    "#c:storage_blocks/raw_nickel",
+    "#c:storage_blocks/steel"
   ]
 }

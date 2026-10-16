@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:sulfur_ore",
+    "haven_consolidated:sulfur_basalt_ore"
+  ]
+}

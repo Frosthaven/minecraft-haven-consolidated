@@ -6,6 +6,9 @@
   "mixins": [
     "BaseMappedRegistryMixin",
     "CreativeTabEventMixin",
+    "FluidMixin",
+    "FluidStackMixin",
+    "FluidStateMixin",
     "ItemMixin",
     "ItemStackMixin",
     "RecipeManagerMixin"

@@ -1,9 +1,21 @@
 {
   "replace": false,
   "values": [
+    "haven_consolidated:moon_aluminum_ore",
+    "haven_consolidated:aluminum_block",
+    "haven_consolidated:raw_aluminum_block",
+    "haven_consolidated:bronze_block",
+    "haven_consolidated:cast_iron_block",
     "haven_consolidated:lead_ore",
     "haven_consolidated:deepslate_lead_ore",
     "haven_consolidated:lead_block",
-    "haven_consolidated:raw_lead_block"
+    "haven_consolidated:raw_lead_block",
+    "haven_consolidated:nickel_ore",
+    "haven_consolidated:deepslate_nickel_ore",
+    "haven_consolidated:moon_nickel_ore",
+    "haven_consolidated:nickel_block",
+    "haven_consolidated:raw_nickel_block",
+    "haven_consolidated:sulfur_ore",
+    "haven_consolidated:sulfur_basalt_ore"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "result": {
+    "id": "haven_consolidated:bronze_block"
+  }
+}

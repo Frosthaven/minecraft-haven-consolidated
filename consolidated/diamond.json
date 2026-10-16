@@ -1,0 +1,2 @@
+{"metal": "diamond", "name": "Diamond", "art": ["mekanism", "createaddition"], "color": "#6fe3dd",
+ "forms": {"dust": ["mekanism:dust_diamond", "createaddition:diamond_grit"]}}

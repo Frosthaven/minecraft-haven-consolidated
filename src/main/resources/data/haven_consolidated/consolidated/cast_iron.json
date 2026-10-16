@@ -1,0 +1,45 @@
+{
+  "metal": "cast_iron",
+  "name": "Cast Iron",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:cast_iron_ingot",
+      "replaces": [
+        "createbigcannons:cast_iron_ingot",
+        "tfmg:cast_iron_ingot"
+      ],
+      "art": "createbigcannons:cast_iron_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:cast_iron_nugget",
+      "replaces": [
+        "createbigcannons:cast_iron_nugget",
+        "tfmg:cast_iron_nugget"
+      ],
+      "art": "createbigcannons:cast_iron_nugget"
+    },
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:cast_iron_sheet",
+      "replaces": [
+        "tfmg:cast_iron_sheet"
+      ],
+      "art": "tfmg:cast_iron_sheet"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:cast_iron_block",
+      "replaces": [
+        "createbigcannons:cast_iron_block",
+        "tfmg:cast_iron_block"
+      ],
+      "art": "createbigcannons:cast_iron_block"
+    }
+  ]
+}

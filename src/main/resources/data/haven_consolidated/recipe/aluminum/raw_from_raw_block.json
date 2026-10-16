@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/raw_aluminum"
+    }
+  ],
+  "result": {
+    "id": "haven_consolidated:raw_aluminum",
+    "count": 9
+  }
+}

@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
-    "#c:dusts/lead"
+    "#c:dusts/bronze",
+    "#c:dusts/charcoal",
+    "#c:dusts/copper",
+    "#c:dusts/diamond",
+    "#c:dusts/ender_pearl",
+    "#c:dusts/lead",
+    "#c:dusts/obsidian",
+    "#c:dusts/saltpeter",
+    "#c:dusts/steel",
+    "#c:dusts/sulfur",
+    "#c:dusts/wood"
   ]
 }

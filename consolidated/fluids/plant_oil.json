@@ -1,0 +1,2 @@
+{"fluid": "plant_oil", "name": "Plant Oil", "kind": "oil", "tags": ["c:plantoil"],
+ "replaces": ["createdieselgenerators:plant_oil", "electroenergetics:plant_oil", "createaddition:seed_oil"]}

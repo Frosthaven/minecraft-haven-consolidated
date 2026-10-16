@@ -1,0 +1,16 @@
+{
+  "metal": "obsidian",
+  "name": "Obsidian",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:obsidian_dust",
+      "replaces": [
+        "create:powdered_obsidian",
+        "mekanism:dust_obsidian"
+      ],
+      "art": "create:powdered_obsidian"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "metal": "aluminum",
+  "name": "Aluminum",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:aluminum_ingot",
+      "replaces": [
+        "tfmg:aluminum_ingot",
+        "creatingspace:aluminum_ingot"
+      ],
+      "art": "tfmg:aluminum_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:aluminum_nugget",
+      "replaces": [
+        "tfmg:aluminum_nugget",
+        "creatingspace:aluminum_nugget"
+      ],
+      "art": "tfmg:aluminum_nugget"
+    },
+    {
+      "form": "raw",
+      "kind": "item",
+      "id": "haven_consolidated:raw_aluminum",
+      "replaces": [
+        "creatingspace:raw_aluminum"
+      ],
+      "art": "creatingspace:raw_aluminum"
+    },
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:aluminum_sheet",
+      "replaces": [
+        "tfmg:aluminum_sheet",
+        "creatingspace:aluminum_sheet"
+      ],
+      "art": "tfmg:aluminum_sheet"
+    },
+    {
+      "form": "wire",
+      "kind": "item",
+      "id": "haven_consolidated:aluminum_wire",
+      "replaces": [
+        "tfmg:aluminum_wire"
+      ],
+      "art": "tfmg:aluminum_wire"
+    },
+    {
+      "form": "moon_ore",
+      "kind": "moon_ore",
+      "id": "haven_consolidated:moon_aluminum_ore",
+      "replaces": [
+        "creatingspace:moon_aluminum_ore"
+      ],
+      "art": "creatingspace:moon_aluminum_ore"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:aluminum_block",
+      "replaces": [
+        "tfmg:aluminum_block",
+        "creatingspace:aluminum_block"
+      ],
+      "art": "tfmg:aluminum_block"
+    },
+    {
+      "form": "raw_block",
+      "kind": "raw_block",
+      "id": "haven_consolidated:raw_aluminum_block",
+      "replaces": [
+        "creatingspace:raw_aluminum_block"
+      ],
+      "art": "creatingspace:raw_aluminum_block"
+    }
+  ]
+}

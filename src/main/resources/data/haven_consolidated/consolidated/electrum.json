@@ -1,0 +1,16 @@
+{
+  "metal": "electrum",
+  "name": "Electrum",
+  "entries": [
+    {
+      "form": "wire",
+      "kind": "item",
+      "id": "haven_consolidated:electrum_wire",
+      "replaces": [
+        "createaddition:electrum_wire",
+        "electroenergetics:electrum_wire"
+      ],
+      "art": "createaddition:electrum_wire"
+    }
+  ]
+}

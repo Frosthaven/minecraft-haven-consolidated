@@ -1,0 +1,9 @@
+{"metal": "steel", "name": "Steel", "art": ["cgs", "tfmg", "createbigcannons", "ad_astra", "mekanism"], "color": "#6b6e74", "tool": "iron",
+ "forms": {
+  "ingot": ["cgs:steel_ingot", "tfmg:steel_ingot", "createbigcannons:steel_ingot", "ad_astra:steel_ingot", "mekanism:ingot_steel"],
+  "nugget": ["cgs:steel_nugget", "tfmg:steel_nugget", "createbigcannons:steel_scrap", "ad_astra:steel_nugget", "mekanism:nugget_steel"],
+  "dust": ["mekanism:dust_steel"],
+  "sheet": ["cgs:steel_sheet", "tfmg:heavy_plate", "ad_astra:steel_plate"],
+  "rod": ["tfmg:rebar", "ad_astra:steel_rod"],
+  "block": ["cgs:steel_block", "tfmg:steel_block", "createbigcannons:steel_block", "ad_astra:steel_block", "mekanism:block_steel"]
+ }}

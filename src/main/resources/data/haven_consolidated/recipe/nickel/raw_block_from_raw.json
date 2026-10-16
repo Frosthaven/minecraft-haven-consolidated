@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:raw_materials/nickel"
+    }
+  },
+  "result": {
+    "id": "haven_consolidated:raw_nickel_block"
+  }
+}

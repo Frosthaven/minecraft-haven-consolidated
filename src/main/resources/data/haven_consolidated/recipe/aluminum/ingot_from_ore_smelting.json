@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:ores/aluminum"
+  },
+  "result": {
+    "id": "haven_consolidated:aluminum_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 200
+}

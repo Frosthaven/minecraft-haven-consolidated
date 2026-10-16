@@ -1,0 +1,15 @@
+{
+  "fluid": "hydrogen",
+  "name": "Hydrogen",
+  "kind": "gas",
+  "id": "haven_consolidated:hydrogen",
+  "flowing": "haven_consolidated:flowing_hydrogen",
+  "bucket": "haven_consolidated:hydrogen_bucket",
+  "replaces": [
+    "tfmg:hydrogen",
+    "ad_astra:hydrogen",
+    "mekanism:hydrogen",
+    "createbb:hydrogen"
+  ],
+  "art": "tfmg:hydrogen"
+}

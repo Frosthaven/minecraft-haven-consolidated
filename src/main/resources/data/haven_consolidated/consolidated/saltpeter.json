@@ -1,0 +1,16 @@
+{
+  "metal": "saltpeter",
+  "name": "Saltpeter",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:saltpeter_dust",
+      "replaces": [
+        "cgs:niter",
+        "tfmg:nitrate_dust"
+      ],
+      "art": "cgs:niter"
+    }
+  ]
+}

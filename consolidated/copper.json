@@ -1,0 +1,5 @@
+{"metal": "copper", "name": "Copper", "art": ["createaddition", "mekanism", "createbb", "tfmg", "electroenergetics", "create_new_age"], "color": "#c7733c",
+ "forms": {
+  "dust": ["mekanism:dust_copper", "createbb:crushed_copper"],
+  "wire": ["createaddition:copper_wire", "electroenergetics:copper_wire", "create_new_age:copper_wire", "tfmg:copper_wire"]
+ }}

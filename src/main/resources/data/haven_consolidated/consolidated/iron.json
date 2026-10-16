@@ -1,0 +1,36 @@
+{
+  "metal": "iron",
+  "name": "Iron",
+  "entries": [
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:iron_sheet",
+      "replaces": [
+        "create:iron_sheet",
+        "ad_astra:iron_plate"
+      ],
+      "art": "create:iron_sheet"
+    },
+    {
+      "form": "rod",
+      "kind": "item",
+      "id": "haven_consolidated:iron_rod",
+      "replaces": [
+        "createaddition:iron_rod",
+        "ad_astra:iron_rod"
+      ],
+      "art": "createaddition:iron_rod"
+    },
+    {
+      "form": "wire",
+      "kind": "item",
+      "id": "haven_consolidated:iron_wire",
+      "replaces": [
+        "createaddition:iron_wire",
+        "electroenergetics:iron_wire"
+      ],
+      "art": "createaddition:iron_wire"
+    }
+  ]
+}

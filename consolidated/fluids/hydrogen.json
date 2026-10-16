@@ -1,0 +1,2 @@
+{"fluid": "hydrogen", "name": "Hydrogen", "kind": "gas", "tags": ["c:hydrogen"],
+ "replaces": ["tfmg:hydrogen", "ad_astra:hydrogen", "mekanism:hydrogen", "createbb:hydrogen"]}

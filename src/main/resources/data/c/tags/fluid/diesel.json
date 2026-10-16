@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:diesel",
+    "haven_consolidated:flowing_diesel"
+  ]
+}

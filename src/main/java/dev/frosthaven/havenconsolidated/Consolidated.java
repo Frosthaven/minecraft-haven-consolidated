@@ -1,7 +1,6 @@
 package dev.frosthaven.havenconsolidated;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
@@ -13,23 +12,35 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
-/** The metals the mod owns: data/haven_consolidated/consolidated/*.json, written by tools/gen.py from consolidated/. */
+/** What the mod owns: data/haven_consolidated/consolidated/*.json and fluids/*.json, written by tools/gen.py. */
 public final class Consolidated {
     /** One registered item or block and the ids of other mods it replaces. */
     public record Entry(String form, Kind kind, ResourceLocation id, List<ResourceLocation> replaces) {}
 
     public record Metal(String id, String name, List<Entry> entries) {}
 
-    public enum Kind { ITEM, ORE, DEEPSLATE_ORE, BLOCK, RAW_BLOCK;
+    /** One registered fluid (still, flowing, block, bucket) and the other mods' still fluids it replaces. */
+    public record FluidEntry(String id, String name, FluidKind kind, ResourceLocation fluid, ResourceLocation flowing,
+                             ResourceLocation bucket, List<ResourceLocation> replaces) {}
+
+    public enum Kind { ITEM, ORE, DEEPSLATE_ORE, MOON_ORE, BASALT_ORE, BLOCK, RAW_BLOCK;
         boolean isBlock() { return this != ITEM; }
     }
 
+    public enum FluidKind { LIQUID, OIL, GAS, MOLTEN }
+
     private static final Gson GSON = new Gson();
     private static List<Metal> metals = List.of();
+    private static List<FluidEntry> fluids = List.of();
 
     public static List<Metal> metals() {
         return metals;
+    }
+
+    public static List<FluidEntry> fluids() {
+        return fluids;
     }
 
     static void load() {
@@ -40,21 +51,34 @@ public final class Consolidated {
             List<Entry> entries = new ArrayList<>();
             for (JsonElement e : json.getAsJsonArray("entries")) {
                 JsonObject o = e.getAsJsonObject();
-                List<ResourceLocation> replaces = new ArrayList<>();
-                JsonArray ids = o.getAsJsonArray("replaces");
-                for (JsonElement id : ids) {
-                    replaces.add(ResourceLocation.parse(id.getAsString()));
-                }
                 entries.add(new Entry(o.get("form").getAsString(),
-                        Kind.valueOf(o.get("kind").getAsString().toUpperCase(java.util.Locale.ROOT)),
-                        ResourceLocation.parse(o.get("id").getAsString()), Collections.unmodifiableList(replaces)));
+                        Kind.valueOf(o.get("kind").getAsString().toUpperCase(Locale.ROOT)),
+                        ResourceLocation.parse(o.get("id").getAsString()), ids(o.getAsJsonArray("replaces"))));
             }
-            out.add(new Metal(json.get("metal").getAsString(), json.get("name").getAsString(),
-                    Collections.unmodifiableList(entries)));
+            out.add(new Metal(json.get("metal").getAsString(), json.get("name").getAsString(), Collections.unmodifiableList(entries)));
         }
         metals = Collections.unmodifiableList(out);
-        HavenConsolidated.LOG.info("Haven Consolidated owns {} metal(s): {}", metals.size(),
-                metals.stream().map(Metal::id).toList());
+        List<FluidEntry> fl = new ArrayList<>();
+        if (index.has("fluids")) {
+            for (JsonElement name : index.getAsJsonArray("fluids")) {
+                JsonObject o = read("fluids/" + name.getAsString() + ".json");
+                fl.add(new FluidEntry(o.get("fluid").getAsString(), o.get("name").getAsString(),
+                        FluidKind.valueOf(o.get("kind").getAsString().toUpperCase(Locale.ROOT)),
+                        ResourceLocation.parse(o.get("id").getAsString()), ResourceLocation.parse(o.get("flowing").getAsString()),
+                        ResourceLocation.parse(o.get("bucket").getAsString()), ids(o.getAsJsonArray("replaces"))));
+            }
+        }
+        fluids = Collections.unmodifiableList(fl);
+        HavenConsolidated.LOG.info("Haven Consolidated owns {} metal(s) and {} fluid(s): {} / {}", metals.size(), fluids.size(),
+                metals.stream().map(Metal::id).toList(), fluids.stream().map(FluidEntry::id).toList());
+    }
+
+    private static List<ResourceLocation> ids(Iterable<JsonElement> array) {
+        List<ResourceLocation> out = new ArrayList<>();
+        for (JsonElement id : array) {
+            out.add(ResourceLocation.parse(id.getAsString()));
+        }
+        return Collections.unmodifiableList(out);
     }
 
     private static JsonObject read(String file) {

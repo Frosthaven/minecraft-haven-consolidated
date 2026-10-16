@@ -1,0 +1,13 @@
+{
+  "fluid": "dragon_breath",
+  "name": "Dragon's Breath",
+  "kind": "liquid",
+  "id": "haven_consolidated:dragon_breath",
+  "flowing": "haven_consolidated:flowing_dragon_breath",
+  "bucket": "haven_consolidated:dragon_breath_bucket",
+  "replaces": [
+    "create_dragons_plus:dragon_breath",
+    "garnished:dragon_breath"
+  ],
+  "art": "create_dragons_plus:dragon_breath"
+}

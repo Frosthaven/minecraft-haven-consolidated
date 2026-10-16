@@ -1,0 +1,3 @@
+{"metal": "saltpeter", "name": "Saltpeter", "art": ["cgs", "tfmg"], "color": "#e6e2d2",
+ "names": {"dust": "Niter"},
+ "forms": {"dust": ["cgs:niter", "tfmg:nitrate_dust"]}}

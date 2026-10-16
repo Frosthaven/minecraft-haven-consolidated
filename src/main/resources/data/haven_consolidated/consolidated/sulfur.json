@@ -1,0 +1,38 @@
+{
+  "metal": "sulfur",
+  "name": "Sulfur",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:sulfur_dust",
+      "replaces": [
+        "cgs:sulfur",
+        "tfmg:sulfur_dust",
+        "mekanism:dust_sulfur",
+        "create_mf:sulfur"
+      ],
+      "art": "cgs:sulfur"
+    },
+    {
+      "form": "ore",
+      "kind": "ore",
+      "id": "haven_consolidated:sulfur_ore",
+      "replaces": [
+        "cgs:sulfur_ore",
+        "tfmg:sulfur",
+        "create_mf:sulfur_ore"
+      ],
+      "art": "cgs:sulfur_ore"
+    },
+    {
+      "form": "basalt_ore",
+      "kind": "basalt_ore",
+      "id": "haven_consolidated:sulfur_basalt_ore",
+      "replaces": [
+        "create_mf:sulfur_basalt_ore"
+      ],
+      "art": "create_mf:sulfur_basalt_ore"
+    }
+  ]
+}

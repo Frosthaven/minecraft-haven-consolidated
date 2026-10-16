@@ -4,11 +4,23 @@ NeoForge 1.21.1 mod, both sides, for the Haven pack (minecraft-haven-pack): one 
 
 ## How a metal is replaced (`src/main/java/dev/frosthaven/havenconsolidated`)
 
-Data: `consolidated/<metal>.json` (hand-written: forms and the ids they replace) -> `tools/gen.py` ->
-`src/main/resources/data/haven_consolidated/consolidated/<metal>.json` (resolved ids, read at startup) plus the
-look, lang, `c:` tags, loot tables and the standard recipes (inputs by tag, results ours). Everything under
-`assets/haven_consolidated` and `data/` is generated: edit the source file and rerun
+Data: `consolidated/<metal>.json` and `consolidated/fluids/<fluid>.json` (hand-written: forms and the ids they
+replace) -> `tools/gen.py` -> `src/main/resources/data/haven_consolidated/consolidated/` (resolved ids, read at
+startup) plus the look, lang, `c:` tags, loot tables and the standard recipes (inputs by tag, results ours).
+Everything under `assets/haven_consolidated` and `data/` is generated: edit the source file and rerun
 `uv run --with pillow python -I tools/gen.py --mods <the pack's mods folder>` (or `HAVEN_MODS`), never the output.
+Forms: ingot, nugget, raw, dust, sheet, rod, wire, ore, deepslate_ore, moon_ore, basalt_ore, block, raw_block;
+`names` overrides a form's display name ("Niter", "Sulfur"), `ore_drop` names the form an ore drops (default raw).
+Cogwheels are left out on purpose: they are Create kinetic blocks with behaviour, not plain items.
+
+Fluids (`consolidated/fluids/<fluid>.json`: `fluid`, `name`, `kind` liquid|oil|gas|molten, `tags`, `replaces` = the
+old still fluids): `Content.registerFluid` makes the still and flowing fluid, a FluidType per kind, the LiquidBlock
+and the bucket, all under the fluid's id. `Aliases` aliases the old still fluid, its `flowing_` twin, every
+LiquidBlock holding it and every BucketItem holding it (found by scanning the registries, so the mods' naming does
+not matter). `FluidStackMixin` swaps an old fluid for ours in the constructor and makes `is(old)` true;
+`FluidMixin.isSame` and `FluidStateMixin.is` do the same for fluids in the world. `client/ClientFluids` passes every
+client extension call (textures, tint, fog) to the first old fluid present, so ours looks like the source mod's.
+Mekanism's gases stay Mekanism's: those are chemicals, a separate registry; only its liquid forms are aliased.
 
 The look: our item takes the source mod's own model files. The metal's `art` list ranks the source mods (Create:
 Gunsmithing first by the owner's choice; TFMG, then Mekanism for the forms it lacks); the item model and, for blocks,
@@ -27,10 +39,10 @@ Runtime, in order:
 3. `ItemStackMixin`: the constructor every path ends in swaps an old item for ours (stacks built in code), and
    `stack.is(oldItem)` is true for our item (code asking "is this my ingot?" accepts ours).
 4. `RecipeManagerMixin` -> `RecipeDedupe` (after parsing, so every id is already ours): among the recipes whose
-   result is one of our items, a recipe with the same type, result and ingredient item sets as an earlier one is
-   dropped (a mod's own-item input and the tag input resolve to the same set). Ours come first and win. Special
-   recipes and recipes for other items are never touched. Recipes that only differ in experience or cooking time
-   count as the same.
+   result is one of our items or fluids, a recipe with the same type, results and ingredient sets as an earlier one
+   is dropped (a mod's own-item input and the tag input resolve to the same set). Ours come first and win. Recipes
+   for other things are never touched. Recipes that only differ in experience or cooking time count as the same.
+   Fluid results and inputs are read by reflection from Create's `getFluidResults()` / `getFluidIngredients()`.
 5. `AliasHits` (+ NeoForge's `ChunkDataEvent.Load`, posted at the end of each chunk read on the server thread): a
    chunk whose read hit an alias (old ore in a palette, old items in a container) is marked unsaved, so the next
    save writes our ids to the region file (the map and offline copies see the conversion). Reading explored areas
@@ -44,10 +56,11 @@ Consequences to keep in mind:
 - The old items still exist in the registries (the owning mods reference them; they cannot be unregistered). They
   are unreachable: nothing resolves to them and no stack of them can be built. Creative tabs and JEI build stacks, so
   they show ours in their place (no hiding code needed). A tab that listed two old ids of one form (TFMG: lead ore
-  and deepslate lead ore both became our ore once; three mods' ingots in the search tab) now lists our stack twice,
-  which NeoForge rejects: `CreativeTabEventMixin` skips that check for our items (the set add drops the duplicate).
-  The headless test builds every creative tab before it leaves the world, since opening the inventory in creative
-  mode is where this crashed.
+  and deepslate lead ore both became our ore once; three mods' ingots in the search tab; Mekanism's creative tank
+  per fluid, four hydrogens now one) lists the same stack twice, which NeoForge rejects: `CreativeTabEventMixin`
+  skips that check for every stack (the set add drops the duplicate; the check is a developer aid). The headless
+  test builds every creative tab before it leaves the world, since opening the inventory in creative mode is where
+  this crashed.
 - A stack built through `ItemStack(ItemLike, int)` takes the old item's default components as its base; for the
   plain items we replace those are identical to ours.
 - Two palette entries of one chunk section may decode to the same block; vanilla's palette copes (two ids, one state).

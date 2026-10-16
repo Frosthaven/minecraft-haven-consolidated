@@ -1,0 +1,3 @@
+{"metal": "wood", "name": "Wood", "art": ["mekanism", "createdieselgenerators"], "color": "#a57f4b",
+ "names": {"dust": "Sawdust"},
+ "forms": {"dust": ["mekanism:sawdust", "createdieselgenerators:wood_chip"]}}

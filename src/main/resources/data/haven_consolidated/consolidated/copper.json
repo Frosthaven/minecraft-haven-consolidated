@@ -1,0 +1,28 @@
+{
+  "metal": "copper",
+  "name": "Copper",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:copper_dust",
+      "replaces": [
+        "mekanism:dust_copper",
+        "createbb:crushed_copper"
+      ],
+      "art": "mekanism:dust_copper"
+    },
+    {
+      "form": "wire",
+      "kind": "item",
+      "id": "haven_consolidated:copper_wire",
+      "replaces": [
+        "createaddition:copper_wire",
+        "electroenergetics:copper_wire",
+        "create_new_age:copper_wire",
+        "tfmg:copper_wire"
+      ],
+      "art": "createaddition:copper_wire"
+    }
+  ]
+}
