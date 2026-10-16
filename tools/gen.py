@@ -91,6 +91,21 @@ class Jars:
             return json.loads(z.read(path).decode("utf-8-sig"))
 
 
+def single_variant(state: dict):
+    """Our blocks have no properties: a source blockstate keyed by properties (a facing ore) or in multipart form is
+    reduced to its first model as the one default variant; a plain one is kept as it is."""
+    variants = state.get("variants")
+    if variants is not None:
+        if list(variants) == [""]:
+            return state
+        first = next(iter(variants.values()))
+        return {"variants": {"": first}}
+    parts = state.get("multipart", [])
+    if parts:
+        return {"variants": {"": parts[0]["apply"]}}
+    return None
+
+
 def source_art(old_ids: list, art: list, kind: str, jars: Jars):
     """(blockstate, item model, source id) from the first art mod that has the files, else None."""
     def rank(iid):
@@ -100,14 +115,13 @@ def source_art(old_ids: list, art: list, kind: str, jars: Jars):
         ns, name = old.split(":", 1)
         model = jars.json(f"assets/{ns}/models/item/{name}.json")
         state = jars.json(f"assets/{ns}/blockstates/{name}.json") if kind in BLOCK_KINDS else None
+        state = single_variant(state) if state else None
         if kind in BLOCK_KINDS and state:
-            if not model:   # a block item without its own model file: the blockstate's first model
-                variants = state.get("variants", {})
-                first = next(iter(variants.values()), None) if variants else None
+            if not model:   # a block item without its own model file: the blockstate's model
+                first = state["variants"][""]
                 first = first[0] if isinstance(first, list) else first
-                model = {"parent": first["model"]} if first else None
-            if model:
-                return state, model, old
+                model = {"parent": first["model"]}
+            return state, model, old
         elif kind not in BLOCK_KINDS and model:
             return None, model, old
     return None

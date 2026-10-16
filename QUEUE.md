@@ -1,7 +1,8 @@
 # Consolidation queue
 
 Every metal form more than one mod adds (tools/survey.py over the Haven pack, 2026-10-16), in the order to
-do them. Lead is done. One consolidated/<metal>.json each, then the snapshot test. Queued, not started.
+do them. All of it is built (2026-10-16, one consolidated/<metal>.json or fluids/<fluid>.json each) and passed the
+headless snapshot test; it waits for the owner's play test in Haven Snapshot, then the push and the pack pin.
 
 1 to 6 are whole chains: forms marked (dup) have several sources; the others are the single-source parts of
 the same chain, owned too so the chain is one namespace. 7 on are single duplicated forms of metals whose
@@ -101,7 +102,7 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 ## 16. zinc
 
 - plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet
-## Fluids (queued 2026-10-16, after the survey of fluid tags, names and buckets)
+## Fluids (built 2026-10-16, after the survey of fluid tags, names and buckets)
 
 Same mechanism as items: a fluid is stored everywhere as `{"id": "<fluid id>", "amount": n}` (NeoForge FluidStack codec,
 `BuiltInRegistries.FLUID.holderByNameCodec()`: tanks, buckets, Create and Mekanism tank items, AE2 fluid cells, pipes),
