@@ -25,10 +25,11 @@ abstract class FluidMixin implements AliasedFluid {
         haven$target = target;
     }
 
+    /** Either way round: {@code ours.isSame(old)} (Deep Seas asks a tank's fluid) and {@code old.isSame(ours)}. */
     @Inject(method = "isSame", at = @At("HEAD"), cancellable = true)
     private void haven$isSameAliased(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
         Fluid target = ((AliasedFluid) fluid).haven$target();
-        if (target != null && target == (Object) this) {
+        if ((target != null && target == (Object) this) || (haven$target != null && haven$target == fluid)) {
             cir.setReturnValue(true);
         }
     }
