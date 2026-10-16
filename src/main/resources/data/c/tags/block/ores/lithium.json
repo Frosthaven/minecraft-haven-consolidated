@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:lithium_ore",
+    "haven_consolidated:deepslate_lithium_ore"
+  ]
+}

@@ -1,0 +1,2 @@
+{"fluid": "deuterium", "name": "Deuterium", "kind": "liquid", "tags": ["c:deuterium"],
+ "replaces": ["mekanismgenerators:deuterium", "solarpunk:deuterium"]}

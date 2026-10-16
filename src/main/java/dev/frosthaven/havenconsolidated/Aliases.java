@@ -70,9 +70,11 @@ public final class Aliases {
                 Fluid oldStill = BuiltInRegistries.FLUID.get(old);
                 aliasFluid(old, f.fluid(), oldStill, still);
                 FLUID_ART.putIfAbsent(f.fluid(), oldStill);
-                ResourceLocation oldFlowing = ResourceLocation.fromNamespaceAndPath(old.getNamespace(), "flowing_" + old.getPath());
-                if (BuiltInRegistries.FLUID.containsKey(oldFlowing)) {
-                    aliasFluid(oldFlowing, f.flowing(), BuiltInRegistries.FLUID.get(oldFlowing), flowing);
+                for (String name : new String[] {"flowing_" + old.getPath(), old.getPath() + "_flowing"}) {   // both namings exist
+                    ResourceLocation oldFlowing = ResourceLocation.fromNamespaceAndPath(old.getNamespace(), name);
+                    if (BuiltInRegistries.FLUID.containsKey(oldFlowing)) {
+                        aliasFluid(oldFlowing, f.flowing(), BuiltInRegistries.FLUID.get(oldFlowing), flowing);
+                    }
                 }
                 for (Block b : liquidBlocks.getOrDefault(oldStill, List.of())) {
                     aliasBlock(BuiltInRegistries.BLOCK.getKey(b), f.fluid());

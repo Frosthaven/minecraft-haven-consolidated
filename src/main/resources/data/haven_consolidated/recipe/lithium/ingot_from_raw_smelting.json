@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:raw_materials/lithium"
+  },
+  "result": {
+    "id": "haven_consolidated:lithium_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 200
+}

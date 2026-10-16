@@ -1,0 +1,13 @@
+{
+  "fluid": "steam",
+  "name": "Steam",
+  "kind": "gas",
+  "id": "haven_consolidated:steam",
+  "flowing": "haven_consolidated:flowing_steam",
+  "bucket": "haven_consolidated:steam_bucket",
+  "replaces": [
+    "mekanism:steam",
+    "solarpunk:steam"
+  ],
+  "art": "mekanism:steam"
+}

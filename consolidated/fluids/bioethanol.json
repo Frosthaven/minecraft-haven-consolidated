@@ -1,2 +1,2 @@
 {"fluid": "bioethanol", "name": "Bioethanol", "kind": "liquid", "tags": ["c:bioethanol", "c:biofuel", "c:ethanol"],
- "replaces": ["createaddition:bioethanol", "mekanismgenerators:bioethanol", "createdieselgenerators:ethanol"]}
+ "replaces": ["createaddition:bioethanol", "mekanismgenerators:bioethanol", "createdieselgenerators:ethanol", "solarpunk:biofuel"]}

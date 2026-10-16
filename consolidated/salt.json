@@ -1,0 +1,6 @@
+{"metal": "salt", "name": "Salt", "art": ["mekanism", "solarpunk"], "color": "#eeeeee", "tool": "stone",
+ "names": {"block": "Salt Block"},
+ "forms": {
+  "gem": ["mekanism:salt", "solarpunk:salt"],
+  "block": ["mekanism:block_salt", "solarpunk:salt_block"]
+ }}

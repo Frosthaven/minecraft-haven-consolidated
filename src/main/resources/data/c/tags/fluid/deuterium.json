@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:deuterium",
+    "haven_consolidated:flowing_deuterium"
+  ]
+}

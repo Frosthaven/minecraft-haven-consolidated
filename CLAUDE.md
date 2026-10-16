@@ -9,9 +9,9 @@ replace) -> `tools/gen.py` -> `src/main/resources/data/haven_consolidated/consol
 startup) plus the look, lang, `c:` tags, loot tables and the standard recipes (inputs by tag, results ours).
 Everything under `assets/haven_consolidated` and `data/` is generated: edit the source file and rerun
 `uv run --with pillow python -I tools/gen.py --mods <the pack's mods folder>` (or `HAVEN_MODS`), never the output.
-Forms: ingot, nugget, raw, dust, sheet, rod, wire, ore, deepslate_ore, nether_ore, moon_ore, basalt_ore, block,
-raw_block; `names` overrides a form's display name ("Niter", "Sulfur"), `ore_drop` names the form an ore drops
-(default raw). One ore form per host rock: an ore keeps the look of the rock it generates in, so a form holds
+Forms: ingot, nugget, raw, dust, gem (the bare item, e.g. Salt), sheet, rod, wire, ore, deepslate_ore, nether_ore,
+moon_ore, basalt_ore, block, raw_block; `names` overrides a form's display name ("Niter", "Sulfur", "Salt Block"),
+`ore_drop` names the form an ore drops (default raw). One ore form per host rock: an ore keeps the look of the rock it generates in, so a form holds
 only sources that generate in that rock (Gunsmithing's sulfur ore sits in netherrack and More Features' in stone:
 nether_ore and ore, not one). Check a new ore's placed feature targets before filing it.
 Cogwheels are left out on purpose: they are Create kinetic blocks with behaviour, not plain items.
@@ -83,6 +83,18 @@ Consequences to keep in mind:
    deepslate_ore, block, raw_block; each a list of old ids). A form with an empty list is still registered (ours
    only, sprite look).
 3. `uv run --with pillow python -I tools/gen.py --mods <mods folder>`, `./gradlew build`, then the snapshot test.
+
+## Testing a dedicated-server join (the test single player cannot run)
+
+`tools/join_test.py [--extra-mod <jar>]`: a copy of the pack instance "Haven" (current mods, no saves, no pre-launch
+command, muted) joins `localhost:25565` headless as the offline player "Tester" and the client log decides: the
+registry sync failing, a disconnect or a crash fails; the play phase beginning (recipes received) passes. Start the
+server first: the pack's smoke data (`minecraft-haven-pack/.cache/smoke/data`, offline mode) with this build's jar
+swapped into `mods/`, run with the itzg image as `tools/join_test.py`'s docstring shows, or `just smoke --serve`.
+Why it exists: 0.1.0 and 0.1.1 passed every single-player test and broke every server login. NeoForge's registry
+sync builds the server's id table with `getId(name)` over every key; the alias answered our id for an old name, the
+old entry's own id was never sent, and the client's id list kept a hole. `getId(name)` now runs with the alias off
+(`MappedRegistryMixin`, `BaseMappedRegistryMixin`). Any change to the alias mechanism runs this test before release.
 
 ## Testing against the Haven Snapshot world
 

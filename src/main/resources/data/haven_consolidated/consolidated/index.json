@@ -10,8 +10,10 @@
     "ender_pearl",
     "iron",
     "lead",
+    "lithium",
     "nickel",
     "obsidian",
+    "salt",
     "saltpeter",
     "steel",
     "sulfur",
@@ -21,12 +23,15 @@
   "fluids": [
     "bioethanol",
     "crude_oil",
+    "deuterium",
     "diesel",
     "dragon_breath",
+    "fertilizer",
     "gasoline",
     "hydrogen",
     "molten_steel",
     "oxygen",
-    "plant_oil"
+    "plant_oil",
+    "steam"
   ]
 }

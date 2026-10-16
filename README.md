@@ -30,8 +30,10 @@ Required on the server and on every client. Nothing to configure.
 | Bronze | ingot, nugget, dust, block | Create Big Cannons, Mekanism |
 | Cast iron | ingot, nugget, sheet, block | Create Big Cannons, TFMG |
 | Sulfur | sulfur, ore, nether ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
+| Lithium | ingot, nugget, raw, dust, ore, deepslate ore, block | TFMG, Create: Solarpunk, Mekanism |
+| Salt | salt, salt block | Mekanism, Create: Solarpunk |
 | Single forms | charcoal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
-| Fluids | crude oil, diesel, gasoline, plant oil, bioethanol, dragon's breath, molten steel, hydrogen, oxygen | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad |
+| Fluids | crude oil, diesel, gasoline, plant oil, bioethanol (also Solarpunk's biofuel), dragon's breath, molten steel, hydrogen, oxygen, steam, deuterium, fertilizer | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Mekanism Generators, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad, Create: Solarpunk, Slice & Dice |
 
 `consolidated/<metal>.json` and `consolidated/fluids/<fluid>.json` list what each one replaces; ids of mods that are
 not installed are skipped, so the same jar works in any pack. Our items look like the source mods' own (Create:

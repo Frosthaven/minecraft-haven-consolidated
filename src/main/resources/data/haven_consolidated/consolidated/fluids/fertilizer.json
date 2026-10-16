@@ -1,0 +1,13 @@
+{
+  "fluid": "fertilizer",
+  "name": "Fertilizer",
+  "kind": "liquid",
+  "id": "haven_consolidated:fertilizer",
+  "flowing": "haven_consolidated:flowing_fertilizer",
+  "bucket": "haven_consolidated:fertilizer_bucket",
+  "replaces": [
+    "sliceanddice:fertilizer",
+    "solarpunk:fertilizer"
+  ],
+  "art": "sliceanddice:fertilizer"
+}

@@ -1,0 +1,13 @@
+{
+  "fluid": "deuterium",
+  "name": "Deuterium",
+  "kind": "liquid",
+  "id": "haven_consolidated:deuterium",
+  "flowing": "haven_consolidated:flowing_deuterium",
+  "bucket": "haven_consolidated:deuterium_bucket",
+  "replaces": [
+    "mekanismgenerators:deuterium",
+    "solarpunk:deuterium"
+  ],
+  "art": "mekanismgenerators:deuterium"
+}

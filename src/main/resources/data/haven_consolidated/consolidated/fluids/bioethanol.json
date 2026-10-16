@@ -8,7 +8,8 @@
   "replaces": [
     "createaddition:bioethanol",
     "mekanismgenerators:bioethanol",
-    "createdieselgenerators:ethanol"
+    "createdieselgenerators:ethanol",
+    "solarpunk:biofuel"
   ],
   "art": "createaddition:bioethanol"
 }

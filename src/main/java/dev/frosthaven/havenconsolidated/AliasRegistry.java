@@ -10,4 +10,8 @@ import net.minecraft.resources.ResourceLocation;
  */
 public interface AliasRegistry {
     void haven$alias(ResourceLocation from, ResourceLocation to);
+
+    /** Enter (+1) or leave (-1) a lookup that must see the registry as it is: {@code getId(name)}, which the registry
+     *  sync uses to build the id table sent to clients. */
+    void haven$raw(int delta);
 }

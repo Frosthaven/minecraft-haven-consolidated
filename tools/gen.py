@@ -37,6 +37,7 @@ FORMS = {
     "nugget": ("{m}_nugget", "item", "{n} Nugget", "nuggets"),
     "raw": ("raw_{m}", "item", "Raw {n}", "raw_materials"),
     "dust": ("{m}_dust", "item", "{n} Dust", "dusts"),
+    "gem": ("{m}", "item", "{n}", "gems"),
     "sheet": ("{m}_sheet", "item", "{n} Sheet", "plates"),
     "rod": ("{m}_rod", "item", "{n} Rod", "rods"),
     "wire": ("{m}_wire", "item", "{n} Wire", "wires"),
@@ -72,12 +73,16 @@ def tag(ns: str, kind: str, name: str, values: list):
 
 
 class Jars:
-    """The pack's mod jars, indexed by asset path (first jar wins)."""
+    """The pack's mod jars (one or more folders), indexed by asset path (first jar wins)."""
 
-    def __init__(self, folder):
+    def __init__(self, folders):
         self.index = {}
-        if folder and Path(folder).is_dir():
-            for jar in sorted(Path(folder).glob("*.jar")):
+        jars = []
+        for folder in folders or []:
+            if folder and Path(folder).is_dir():
+                jars += sorted(Path(folder).glob("*.jar"))
+        if True:
+            for jar in jars:
                 try:
                     with zipfile.ZipFile(jar) as z:
                         for n in z.namelist():
@@ -290,9 +295,8 @@ def gen_recipes(m: str, ids: dict):
 
 
 def main():
-    mods = os.environ.get("HAVEN_MODS")
-    if "--mods" in sys.argv:
-        mods = sys.argv[sys.argv.index("--mods") + 1]
+    mods = [os.environ["HAVEN_MODS"]] if os.environ.get("HAVEN_MODS") else []
+    mods += [sys.argv[i + 1] for i, a in enumerate(sys.argv) if a == "--mods" and i + 1 < len(sys.argv)]
     jars = Jars(mods)
     if not jars.index:
         print("no mod jars found (--mods <folder> or HAVEN_MODS): every form gets a sprite", file=sys.stderr)

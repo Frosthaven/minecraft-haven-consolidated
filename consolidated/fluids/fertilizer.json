@@ -1,0 +1,2 @@
+{"fluid": "fertilizer", "name": "Fertilizer", "kind": "liquid", "tags": ["c:fertilizer"],
+ "replaces": ["sliceanddice:fertilizer", "solarpunk:fertilizer"]}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "c:nuggets/lithium"
+    }
+  },
+  "result": {
+    "id": "haven_consolidated:lithium_ingot"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "metal": "salt",
+  "name": "Salt",
+  "entries": [
+    {
+      "form": "gem",
+      "kind": "item",
+      "id": "haven_consolidated:salt",
+      "replaces": [
+        "mekanism:salt",
+        "solarpunk:salt"
+      ],
+      "art": "mekanism:salt"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:salt_block",
+      "replaces": [
+        "mekanism:block_salt",
+        "solarpunk:salt_block"
+      ],
+      "art": "mekanism:block_salt"
+    }
+  ]
+}

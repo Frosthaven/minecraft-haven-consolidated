@@ -1,0 +1,76 @@
+{
+  "metal": "lithium",
+  "name": "Lithium",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:lithium_ingot",
+      "replaces": [
+        "tfmg:lithium_ingot",
+        "solarpunk:lithium_ingot"
+      ],
+      "art": "tfmg:lithium_ingot"
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:lithium_nugget",
+      "replaces": [
+        "tfmg:lithium_nugget",
+        "solarpunk:lithium_nugget"
+      ],
+      "art": "tfmg:lithium_nugget"
+    },
+    {
+      "form": "raw",
+      "kind": "item",
+      "id": "haven_consolidated:raw_lithium",
+      "replaces": [
+        "tfmg:raw_lithium",
+        "solarpunk:raw_lithium"
+      ],
+      "art": "tfmg:raw_lithium"
+    },
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:lithium_dust",
+      "replaces": [
+        "solarpunk:lithium_dust",
+        "mekanism:dust_lithium"
+      ],
+      "art": "solarpunk:lithium_dust"
+    },
+    {
+      "form": "ore",
+      "kind": "ore",
+      "id": "haven_consolidated:lithium_ore",
+      "replaces": [
+        "tfmg:lithium_ore",
+        "solarpunk:lithium_ore"
+      ],
+      "art": "tfmg:lithium_ore"
+    },
+    {
+      "form": "deepslate_ore",
+      "kind": "deepslate_ore",
+      "id": "haven_consolidated:deepslate_lithium_ore",
+      "replaces": [
+        "tfmg:deepslate_lithium_ore",
+        "solarpunk:deepslate_lithium_ore"
+      ],
+      "art": "tfmg:deepslate_lithium_ore"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:lithium_block",
+      "replaces": [
+        "tfmg:lithium_block",
+        "solarpunk:lithium_block"
+      ],
+      "art": "tfmg:lithium_block"
+    }
+  ]
+}

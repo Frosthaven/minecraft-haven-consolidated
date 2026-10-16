@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "haven_consolidated:lead_ore",
+    "haven_consolidated:lithium_ore",
     "haven_consolidated:nickel_ore",
     "haven_consolidated:sulfur_ore"
   ]

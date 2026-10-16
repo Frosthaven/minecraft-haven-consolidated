@@ -1,0 +1,2 @@
+{"fluid": "steam", "name": "Steam", "kind": "gas", "tags": ["c:steam"],
+ "replaces": ["mekanism:steam", "solarpunk:steam"]}

@@ -1,0 +1,10 @@
+{"metal": "lithium", "name": "Lithium", "art": ["tfmg", "solarpunk", "mekanism"], "color": "#d8d4c0", "tool": "stone",
+ "forms": {
+  "ingot": ["tfmg:lithium_ingot", "solarpunk:lithium_ingot"],
+  "nugget": ["tfmg:lithium_nugget", "solarpunk:lithium_nugget"],
+  "raw": ["tfmg:raw_lithium", "solarpunk:raw_lithium"],
+  "dust": ["solarpunk:lithium_dust", "mekanism:dust_lithium"],
+  "ore": ["tfmg:lithium_ore", "solarpunk:lithium_ore"],
+  "deepslate_ore": ["tfmg:deepslate_lithium_ore", "solarpunk:deepslate_lithium_ore"],
+  "block": ["tfmg:lithium_block", "solarpunk:lithium_block"]
+ }}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:fertilizer",
+    "haven_consolidated:flowing_fertilizer"
+  ]
+}
