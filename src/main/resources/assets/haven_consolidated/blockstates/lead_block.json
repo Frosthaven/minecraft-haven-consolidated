@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven_consolidated:block/lead_block"
+      "model": "cgs:block/lead_block"
     }
   }
 }

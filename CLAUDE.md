@@ -5,10 +5,16 @@ NeoForge 1.21.1 mod, both sides, for the Haven pack (minecraft-haven-pack): one 
 ## How a metal is replaced (`src/main/java/dev/frosthaven/havenconsolidated`)
 
 Data: `consolidated/<metal>.json` (hand-written: forms and the ids they replace) -> `tools/gen.py` ->
-`src/main/resources/data/haven_consolidated/consolidated/<metal>.json` (resolved ids, read at startup) plus textures
-(`tools/textures.py`, one base color per metal), models, blockstates, lang, `c:` tags, loot tables and the standard
-recipes (inputs by tag, results ours). Everything under `assets/haven_consolidated` and `data/` is generated: edit the
-source file and rerun `uv run --with pillow python -I tools/gen.py`, never the output.
+`src/main/resources/data/haven_consolidated/consolidated/<metal>.json` (resolved ids, read at startup) plus the
+look, lang, `c:` tags, loot tables and the standard recipes (inputs by tag, results ours). Everything under
+`assets/haven_consolidated` and `data/` is generated: edit the source file and rerun
+`uv run --with pillow python -I tools/gen.py --mods <the pack's mods folder>` (or `HAVEN_MODS`), never the output.
+
+The look: our item takes the source mod's own model files. The metal's `art` list ranks the source mods (Create:
+Gunsmithing first by the owner's choice; TFMG, then Mekanism for the forms it lacks); the item model and, for blocks,
+the blockstate of the first source that has them are copied as they are into our namespace, so textures and parent
+models stay the source mod's and nothing of theirs is redistributed (Gunsmithing is All Rights Reserved). A form no
+source provides gets a sprite from `tools/textures.py` (one base color per metal); that is the fallback only.
 
 Runtime, in order:
 1. `Consolidated.load()` reads the data files; `Content` registers an item (and block) per form and one creative tab.
@@ -53,10 +59,11 @@ Consequences to keep in mind:
 ## Adding a metal
 
 1. Survey: `python3 -I tools/survey.py <pack repo> <mods dir>...` lists every metal form more than one mod adds.
-2. Write `consolidated/<metal>.json`: `metal`, `name`, `color` (hex, the sprites' base), `tool` (stone|iron), and
-   `forms` (ingot, nugget, raw, dust, sheet, ore, deepslate_ore, block, raw_block; each a list of old ids). A form
-   with an empty list is still registered (ours only).
-3. `uv run --with pillow python -I tools/gen.py`, `./gradlew build`, then the snapshot test below.
+2. Write `consolidated/<metal>.json`: `metal`, `name`, `art` (source mod ids in the order their look is taken),
+   `color` (hex, the fallback sprites' base), `tool` (stone|iron), and `forms` (ingot, nugget, raw, dust, sheet, ore,
+   deepslate_ore, block, raw_block; each a list of old ids). A form with an empty list is still registered (ours
+   only, sprite look).
+3. `uv run --with pillow python -I tools/gen.py --mods <mods folder>`, `./gradlew build`, then the snapshot test.
 
 ## Testing against the Haven Snapshot world
 

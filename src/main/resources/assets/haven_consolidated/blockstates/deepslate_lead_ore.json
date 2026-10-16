@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven_consolidated:block/deepslate_lead_ore"
+      "model": "cgs:block/deepslate_lead_ore"
     }
   }
 }

@@ -2,14 +2,20 @@
 owns and the other mods' ids each one replaces. Output (all committed, rewritten from scratch on every run):
 
 - data/haven_consolidated/consolidated/<metal>.json + index.json: what the mod registers and aliases (read at startup);
-- textures (tools/textures.py), item and block models, blockstates, en_us lang;
-- tags (c: forms, ores_in_ground, ore_rates, mineable, tool tiers), loot tables, the standard recipes.
+- the look: our item uses the source mod's own model files (blockstate and item model copied as they are, so the
+  textures and parents stay in the source mod's namespace and nothing is redistributed); the metal's `art` list says
+  which mod to take first (Create: Gunsmithing by default), the others follow when it lacks a form. A form no mod
+  provides gets a sprite from tools/textures.py;
+- en_us lang, tags (c: forms, ores_in_ground, ore_rates, mineable, tool tiers), loot tables, the standard recipes.
 
-Run: uv run --with pillow python -I tools/gen.py
+Run: uv run --with pillow python -I tools/gen.py [--mods <folder with the pack's mod jars>]
+The mods folder (or $HAVEN_MODS) is where the source models are read from, e.g. a Prism instance's minecraft/mods.
 """
 import json
+import os
 import shutil
 import sys
+import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -20,6 +26,7 @@ NS = "haven_consolidated"
 RES = REPO / "src/main/resources"
 ASSETS = RES / "assets" / NS
 DATA = RES / "data"
+DEFAULT_ART = ["cgs"]
 
 # form -> (item id pattern, kind, lang pattern, c: tag folder)
 FORMS = {
@@ -42,14 +49,59 @@ def write(path: Path, data):
     path.write_text(text, encoding="utf-8")
 
 
-def tag(ns: str, kind: str, name: str, values: list, replace=False):
+def tag(ns: str, kind: str, name: str, values: list):
     """Appends to a tag file (several metals share c:ingots etc.)."""
     path = DATA / ns / "tags" / kind / f"{name}.json"
-    current = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"replace": replace, "values": []}
+    current = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"replace": False, "values": []}
     for v in values:
         if v not in current["values"]:
             current["values"].append(v)
     write(path, current)
+
+
+class Jars:
+    """The pack's mod jars, indexed by asset path (first jar wins)."""
+
+    def __init__(self, folder):
+        self.index = {}
+        if folder and Path(folder).is_dir():
+            for jar in sorted(Path(folder).glob("*.jar")):
+                try:
+                    with zipfile.ZipFile(jar) as z:
+                        for n in z.namelist():
+                            if n.startswith("assets/") and (n.endswith(".json")):
+                                self.index.setdefault(n, jar)
+                except zipfile.BadZipFile:
+                    pass
+
+    def json(self, path: str):
+        jar = self.index.get(path)
+        if not jar:
+            return None
+        with zipfile.ZipFile(jar) as z:
+            return json.loads(z.read(path).decode("utf-8-sig"))
+
+
+def source_art(old_ids: list, art: list, kind: str, jars: Jars):
+    """(blockstate, item model, source id) from the first art mod that has the files, else None."""
+    def rank(iid):
+        ns = iid.split(":")[0]
+        return art.index(ns) if ns in art else len(art)
+    for old in sorted(old_ids, key=rank):
+        ns, name = old.split(":", 1)
+        model = jars.json(f"assets/{ns}/models/item/{name}.json")
+        state = jars.json(f"assets/{ns}/blockstates/{name}.json") if kind in BLOCK_KINDS else None
+        if kind in BLOCK_KINDS and state:
+            if not model:   # a block item without its own model file: the blockstate's first model
+                variants = state.get("variants", {})
+                first = next(iter(variants.values()), None) if variants else None
+                first = first[0] if isinstance(first, list) else first
+                model = {"parent": first["model"]} if first else None
+            if model:
+                return state, model, old
+        elif kind not in BLOCK_KINDS and model:
+            return None, model, old
+    return None
 
 
 def metal_ids(metal: dict) -> dict:
@@ -57,28 +109,45 @@ def metal_ids(metal: dict) -> dict:
     return {f: f"{NS}:{FORMS[f][0].format(m=metal['metal'])}" for f in metal["forms"] if f in FORMS}
 
 
-def gen_metal(metal: dict, lang: dict, index: list):
+def look(form: str, kind: str, hc: str, old_ids: list, art: list, pal, jars: Jars) -> str:
+    """Writes the model files for one of our items; returns where the art came from."""
+    name = hc.split(":")[1]
+    found = source_art(old_ids, art, kind, jars)
+    if found:
+        state, model, source = found
+        if state:
+            write(ASSETS / "blockstates" / f"{name}.json", state)
+        write(ASSETS / "models" / "item" / f"{name}.json", model)
+        return source
+    sub = "block" if kind in BLOCK_KINDS else "item"
+    png = ASSETS / "textures" / sub / f"{name}.png"
+    png.parent.mkdir(parents=True, exist_ok=True)
+    textures.SPRITES[form](pal).save(png)
+    if kind in BLOCK_KINDS:
+        write(ASSETS / "blockstates" / f"{name}.json", {"variants": {"": {"model": f"{NS}:block/{name}"}}})
+        write(ASSETS / "models" / "block" / f"{name}.json",
+              {"parent": "minecraft:block/cube_all", "textures": {"all": f"{NS}:block/{name}"}})
+        write(ASSETS / "models" / "item" / f"{name}.json", {"parent": f"{NS}:block/{name}"})
+    else:
+        write(ASSETS / "models" / "item" / f"{name}.json",
+              {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{name}"}})
+    return "sprite"
+
+
+def gen_metal(metal: dict, lang: dict, index: list, jars: Jars):
     m, n = metal["metal"], metal["name"]
     ids = metal_ids(metal)
-    pal = textures.palette(metal["color"])
-    entries = []
+    pal = textures.palette(metal.get("color", "#8a8a8a"))
+    art = metal.get("art", DEFAULT_ART)
     tool = metal.get("tool", "stone")
+    entries = []
     for form, hc in ids.items():
         pattern, kind, lang_pattern, folder = FORMS[form]
         name = hc.split(":")[1]
-        entries.append({"form": form, "kind": kind, "id": hc, "replaces": metal["forms"][form]})
-        # texture
-        sub = "block" if kind in BLOCK_KINDS else "item"
-        png = ASSETS / "textures" / sub / f"{name}.png"
-        png.parent.mkdir(parents=True, exist_ok=True)
-        textures.SPRITES[form](pal).save(png)
+        source = look(form, kind, hc, metal["forms"][form], art, pal, jars)
+        entries.append({"form": form, "kind": kind, "id": hc, "replaces": metal["forms"][form], "art": source})
         if kind in BLOCK_KINDS:
-            write(ASSETS / "blockstates" / f"{name}.json", {"variants": {"": {"model": f"{NS}:block/{name}"}}})
-            write(ASSETS / "models" / "block" / f"{name}.json",
-                  {"parent": "minecraft:block/cube_all", "textures": {"all": f"{NS}:block/{name}"}})
-            write(ASSETS / "models" / "item" / f"{name}.json", {"parent": f"{NS}:block/{name}"})
             lang[f"block.{NS}.{name}"] = lang_pattern.format(n=n)
-            # loot
             if kind in ("ore", "deepslate_ore"):
                 drop = ids.get("raw", hc)
                 loot = {"type": "minecraft:block", "pools": [{"rolls": 1.0, "bonus_rolls": 0.0, "entries": [
@@ -97,33 +166,28 @@ def gen_metal(metal: dict, lang: dict, index: list):
                         "conditions": [{"condition": "minecraft:survives_explosion"}]}],
                         "random_sequence": f"{NS}:blocks/{name}"}
             write(DATA / NS / "loot_table" / "blocks" / f"{name}.json", loot)
-            # block tags
             tag("minecraft", "block", "mineable/pickaxe", [hc])
             tag("minecraft", "block", f"needs_{tool}_tool", [hc])
             if kind in ("ore", "deepslate_ore"):
-                tag("c", "block", f"ores/{m}", [hc])
-                tag("c", "block", "ores", [f"#c:ores/{m}"])
-                tag("c", "block", "ores_in_ground/" + ("deepslate" if kind == "deepslate_ore" else "stone"), [hc])
-                tag("c", "block", "ore_rates/singular", [hc])
-                tag("c", "item", f"ores/{m}", [hc])
-                tag("c", "item", "ores", [f"#c:ores/{m}"])
-                tag("c", "item", "ores_in_ground/" + ("deepslate" if kind == "deepslate_ore" else "stone"), [hc])
-                tag("c", "item", "ore_rates/singular", [hc])
+                ground = "deepslate" if kind == "deepslate_ore" else "stone"
+                for reg in ("block", "item"):
+                    tag("c", reg, f"ores/{m}", [hc])
+                    tag("c", reg, "ores", [f"#c:ores/{m}"])
+                    tag("c", reg, f"ores_in_ground/{ground}", [hc])
+                    tag("c", reg, "ore_rates/singular", [hc])
             else:
                 key = f"storage_blocks/{'raw_' if kind == 'raw_block' else ''}{m}"
-                tag("c", "block", key, [hc])
-                tag("c", "block", "storage_blocks", [f"#c:{key}"])
-                tag("c", "item", key, [hc])
-                tag("c", "item", "storage_blocks", [f"#c:{key}"])
+                for reg in ("block", "item"):
+                    tag("c", reg, key, [hc])
+                    tag("c", reg, "storage_blocks", [f"#c:{key}"])
         else:
-            write(ASSETS / "models" / "item" / f"{name}.json",
-                  {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{name}"}})
             lang[f"item.{NS}.{name}"] = lang_pattern.format(n=n)
             tag("c", "item", f"{folder}/{m}", [hc])
             tag("c", "item", folder, [f"#c:{folder}/{m}"])
     gen_recipes(m, ids)
     write(DATA / NS / "consolidated" / f"{m}.json", {"metal": m, "name": n, "entries": entries})
     index.append(m)
+    print(f"{m}: " + ", ".join(f"{e['form']} <- {e['art']}" for e in entries))
 
 
 def recipe(name: str, data: dict):
@@ -169,12 +233,18 @@ def gen_recipes(m: str, ids: dict):
 
 
 def main():
+    mods = os.environ.get("HAVEN_MODS")
+    if "--mods" in sys.argv:
+        mods = sys.argv[sys.argv.index("--mods") + 1]
+    jars = Jars(mods)
+    if not jars.index:
+        print("no mod jars found (--mods <folder> or HAVEN_MODS): every form gets a sprite", file=sys.stderr)
     for d in (ASSETS, DATA):
         shutil.rmtree(d, ignore_errors=True)
     lang = {f"itemGroup.{NS}": "Haven Consolidated"}
     index = []
     for path in sorted((REPO / "consolidated").glob("*.json")):
-        gen_metal(json.loads(path.read_text(encoding="utf-8")), lang, index)
+        gen_metal(json.loads(path.read_text(encoding="utf-8")), lang, index, jars)
     write(ASSETS / "lang" / "en_us.json", dict(sorted(lang.items())))
     write(DATA / NS / "consolidated" / "index.json", {"metals": index})
     print(f"generated {len(index)} metal(s): {', '.join(index)}")

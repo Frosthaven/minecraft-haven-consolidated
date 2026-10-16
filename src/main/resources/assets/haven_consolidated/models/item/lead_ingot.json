@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "haven_consolidated:item/lead_ingot"
+    "layer0": "cgs:item/lead_ingot"
   }
 }

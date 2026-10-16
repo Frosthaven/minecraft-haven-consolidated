@@ -10,7 +10,8 @@
         "mekanism:ingot_lead",
         "tfmg:lead_ingot",
         "cgs:lead_ingot"
-      ]
+      ],
+      "art": "cgs:lead_ingot"
     },
     {
       "form": "nugget",
@@ -20,7 +21,8 @@
         "mekanism:nugget_lead",
         "tfmg:lead_nugget",
         "cgs:lead_nugget"
-      ]
+      ],
+      "art": "cgs:lead_nugget"
     },
     {
       "form": "raw",
@@ -30,7 +32,8 @@
         "mekanism:raw_lead",
         "tfmg:raw_lead",
         "cgs:raw_lead"
-      ]
+      ],
+      "art": "cgs:raw_lead"
     },
     {
       "form": "dust",
@@ -38,7 +41,8 @@
       "id": "haven_consolidated:lead_dust",
       "replaces": [
         "mekanism:dust_lead"
-      ]
+      ],
+      "art": "mekanism:dust_lead"
     },
     {
       "form": "sheet",
@@ -46,7 +50,8 @@
       "id": "haven_consolidated:lead_sheet",
       "replaces": [
         "tfmg:lead_sheet"
-      ]
+      ],
+      "art": "tfmg:lead_sheet"
     },
     {
       "form": "ore",
@@ -56,7 +61,8 @@
         "mekanism:lead_ore",
         "tfmg:lead_ore",
         "cgs:lead_ore"
-      ]
+      ],
+      "art": "cgs:lead_ore"
     },
     {
       "form": "deepslate_ore",
@@ -66,7 +72,8 @@
         "mekanism:deepslate_lead_ore",
         "tfmg:deepslate_lead_ore",
         "cgs:deepslate_lead_ore"
-      ]
+      ],
+      "art": "cgs:deepslate_lead_ore"
     },
     {
       "form": "block",
@@ -76,7 +83,8 @@
         "mekanism:block_lead",
         "tfmg:lead_block",
         "cgs:lead_block"
-      ]
+      ],
+      "art": "cgs:lead_block"
     },
     {
       "form": "raw_block",
@@ -86,7 +94,8 @@
         "mekanism:block_raw_lead",
         "tfmg:raw_lead_block",
         "cgs:raw_lead_block"
-      ]
+      ],
+      "art": "cgs:raw_lead_block"
     }
   ]
 }

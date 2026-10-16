@@ -26,9 +26,11 @@ Required on the server and on every client. Nothing to configure.
 | Lead | ingot, nugget, raw, dust, sheet, ore, deepslate ore, block, raw block | Mekanism, Create: The Factory Must Grow, Create: Gunsmithing |
 
 `consolidated/<metal>.json` lists each metal's forms and the ids they replace; ids of mods that are not installed are
-skipped, so the same jar works in any pack. `uv run --with pillow python -I tools/gen.py` turns those files into the
-mod's items, textures, models, tags, loot tables and recipes (all committed). See CLAUDE.md for how the replacement
-works and how to add a metal.
+skipped, so the same jar works in any pack. Our items look like the source mods' own (Create: Gunsmithing first,
+then the others for the forms it lacks): they use those mods' model files, so the art stays theirs.
+`uv run --with pillow python -I tools/gen.py --mods <mods folder>` turns the metal files into the mod's items,
+models, tags, loot tables and recipes (all committed). See CLAUDE.md for how the replacement works and how to add a
+metal.
 
 ## Commands
 

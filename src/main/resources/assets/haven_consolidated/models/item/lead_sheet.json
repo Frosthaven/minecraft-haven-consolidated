@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "haven_consolidated:item/lead_sheet"
+    "layer0": "tfmg:item/lead_sheet"
   }
 }

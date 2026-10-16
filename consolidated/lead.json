@@ -1,6 +1,7 @@
 {
   "metal": "lead",
   "name": "Lead",
+  "art": ["cgs", "tfmg", "mekanism"],
   "color": "#7a86a1",
   "tool": "stone",
   "forms": {

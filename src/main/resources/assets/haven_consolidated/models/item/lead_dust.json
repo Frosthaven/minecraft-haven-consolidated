@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "haven_consolidated:item/lead_dust"
+    "layer0": "mekanism:item/dust_lead"
   }
 }
