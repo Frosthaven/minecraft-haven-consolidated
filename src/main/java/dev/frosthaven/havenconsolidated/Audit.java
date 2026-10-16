@@ -280,6 +280,7 @@ public final class Audit {
         o.addProperty("chunks", chunks);
         o.addProperty("chunks_unsaved", unsaved);
         o.addProperty("chunks_marked_since_start", AliasHits.markedChunks());
+        o.addProperty("chunks_rewritten_since_start", AliasHits.rewrittenChunks());
         o.add("old_blocks", map(oldBlocks));
         o.add("our_blocks", map(ourBlocks));
         o.add("old_items", map(oldItems));

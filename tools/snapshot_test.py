@@ -59,7 +59,9 @@ def copy_instance():
     options = GAME / "options.txt"
     if options.exists():
         text = options.read_text(encoding="utf-8")
-        for key, value in {"renderDistance": "8", "simulationDistance": "8", "pauseOnLostFocus": "false"}.items():
+        # Silent: the owner hears the test otherwise.
+        for key, value in {"renderDistance": "8", "simulationDistance": "8", "pauseOnLostFocus": "false",
+                           "soundCategory_master": "0.0", "soundCategory_music": "0.0"}.items():
             text = re.sub(rf"^{key}:.*$", f"{key}:{value}", text, flags=re.M)
         options.write_text(text, encoding="utf-8")
 

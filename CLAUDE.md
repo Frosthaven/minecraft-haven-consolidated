@@ -46,7 +46,10 @@ Runtime, in order:
 5. `AliasHits` (+ NeoForge's `ChunkDataEvent.Load`, posted at the end of each chunk read on the server thread): a
    chunk whose read hit an alias (old ore in a palette, old items in a container) is marked unsaved, so the next
    save writes our ids to the region file (the map and offline copies see the conversion). Reading explored areas
-   therefore re-saves each chunk once. The audit reports how many loaded chunks are unsaved and how many were marked.
+   therefore re-saves each chunk once. `ChunkEvent.Load` then checks every section's palette for an old block placed
+   by code rather than by id (TFMG's oil wells and deposits set their fluid block object into new chunks) and
+   rewrites those states to ours, keeping same-named properties (a fluid's level). The audit reports how many loaded
+   chunks are unsaved, how many were marked and how many were rewritten.
 6. `Audit`: `/consolidated audit`, or `-Dhaven_consolidated.audit=true` at server start (`.ticks`, `.quit`):
    `haven-consolidated-audit.json` in the game folder. `client/ClientAudit` then leaves the world the way the pause
    menu does (the integrated server saves every unsaved chunk) and quits; `Minecraft.stop()` alone exits without

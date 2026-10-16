@@ -8,6 +8,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.level.ChunkDataEvent;
+import net.neoforged.neoforge.event.level.ChunkEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public final class HavenConsolidated {
         Content.register(modBus);
         modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(Aliases::activate));
         NeoForge.EVENT_BUS.addListener(ChunkDataEvent.Load.class, AliasHits::onChunkRead);
+        NeoForge.EVENT_BUS.addListener(ChunkEvent.Load.class, AliasHits::onChunkLoad);
         NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, Audit::register);
         NeoForge.EVENT_BUS.addListener(ServerStartedEvent.class, Audit::onServerStarted);
         NeoForge.EVENT_BUS.addListener(ServerTickEvent.Post.class, Audit::onServerTick);
