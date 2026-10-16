@@ -7,6 +7,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.level.ChunkDataEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
@@ -18,8 +19,8 @@ import org.slf4j.Logger;
  * <li>{@link Aliases}: the item and block registries answer every lookup of an old id with ours (stored stacks,
  *     recipes, loot, tags, worldgen, chunk palettes all load by id), and a stack built in code from an old item
  *     becomes ours as it is constructed ({@code ItemStackMixin});</li>
- * <li>{@link RecipeJson}: recipe JSON names the old ids literally as well, so they are rewritten before parsing and the
- *     copies that become identical are dropped;</li>
+ * <li>{@link RecipeDedupe}: once parsed, recipes that make our items from the same inputs as an earlier one are
+ *     dropped; {@link AliasHits}: a chunk whose read converted something is marked unsaved;</li>
  * <li>{@link Audit}: {@code /consolidated audit}, or {@code -Dhaven_consolidated.audit=true} at server start, writes
  *     what is left of the old ids (nothing, when it works) to {@code haven-consolidated-audit.json}.</li>
  * </ul>
@@ -33,6 +34,7 @@ public final class HavenConsolidated {
         Consolidated.load();
         Content.register(modBus);
         modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(Aliases::activate));
+        NeoForge.EVENT_BUS.addListener(ChunkDataEvent.Load.class, AliasHits::onChunkRead);
         NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, Audit::register);
         NeoForge.EVENT_BUS.addListener(ServerStartedEvent.class, Audit::onServerStarted);
         NeoForge.EVENT_BUS.addListener(ServerTickEvent.Post.class, Audit::onServerTick);

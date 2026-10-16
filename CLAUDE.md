@@ -20,12 +20,19 @@ Runtime, in order:
    learns its target (`ItemMixin`, `Aliased`).
 3. `ItemStackMixin`: the constructor every path ends in swaps an old item for ours (stacks built in code), and
    `stack.is(oldItem)` is true for our item (code asking "is this my ingot?" accepts ours).
-4. `RecipeManagerMixin` -> `RecipeJson.consolidate`: recipe JSON names old ids literally; they are rewritten before
-   parsing and recipes that then say the same thing are dropped (pattern letters, shapeless order, `count: 1`,
-   `item`/`id`, group/category ignored; conditions compared, so a conditional copy never replaces a plain one).
-   Our recipes are kept first.
-5. `Audit`: `/consolidated audit`, or `-Dhaven_consolidated.audit=true` at server start (`.ticks`, `.quit`):
-   `haven-consolidated-audit.json` in the game folder. `client/ClientAudit` quits the game when asked.
+4. `RecipeManagerMixin` -> `RecipeDedupe` (after parsing, so every id is already ours): among the recipes whose
+   result is one of our items, a recipe with the same type, result and ingredient item sets as an earlier one is
+   dropped (a mod's own-item input and the tag input resolve to the same set). Ours come first and win. Special
+   recipes and recipes for other items are never touched. Recipes that only differ in experience or cooking time
+   count as the same.
+5. `AliasHits` (+ NeoForge's `ChunkDataEvent.Load`, posted at the end of each chunk read on the server thread): a
+   chunk whose read hit an alias (old ore in a palette, old items in a container) is marked unsaved, so the next
+   save writes our ids to the region file (the map and offline copies see the conversion). Reading explored areas
+   therefore re-saves each chunk once. The audit reports how many loaded chunks are unsaved and how many were marked.
+6. `Audit`: `/consolidated audit`, or `-Dhaven_consolidated.audit=true` at server start (`.ticks`, `.quit`):
+   `haven-consolidated-audit.json` in the game folder. `client/ClientAudit` then leaves the world the way the pause
+   menu does (the integrated server saves every unsaved chunk) and quits; `Minecraft.stop()` alone exits without
+   that save. On a dedicated server the marked chunks go out with the autosave or when they unload.
 
 Consequences to keep in mind:
 - The old items still exist in the registries (the owning mods reference them; they cannot be unregistered). They
@@ -34,7 +41,7 @@ Consequences to keep in mind:
 - A stack built through `ItemStack(ItemLike, int)` takes the old item's default components as its base; for the
   plain items we replace those are identical to ours.
 - Two palette entries of one chunk section may decode to the same block; vanilla's palette copes (two ids, one state).
-- A chunk converted on load is not marked dirty by us: the map shows old ore until the chunk saves for another reason.
+- A tag that listed three old ids and ours now holds our holder several times; harmless (JEI cycles the same item).
 - Mekanism's processing intermediates (clump, shard, crystal, dirty dust) stay Mekanism's: stages, not duplicates.
 - AE2 storage cells load entries with a plain put per key; two different old ids of one metal on the same cell would
   collapse to one key and keep the last count. The 2026-10-12 snapshot had no such cell (no cell held any old metal).

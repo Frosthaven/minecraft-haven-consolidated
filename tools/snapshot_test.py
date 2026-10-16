@@ -93,26 +93,58 @@ def game_pids():
     return out
 
 
+FATAL = ("Missing or unsupported mandatory dependencies", "Loading errors encountered", "Mixin apply failed",
+         "failed to load mixin", "Mixin transformation of")
+
+
+def kill_game(signal=15):
+    for pid in game_pids():
+        os.kill(pid, signal)
+    subprocess.run(["pkill", "-f", f"prismlauncher --launch {NAME}"], check=False)
+
+
 def wait(proc: subprocess.Popen) -> Path:
+    """Until the audit file exists. A loading error leaves the game on an error screen for ever: the log is watched."""
     audit = GAME / "haven-consolidated-audit.json"
+    log = GAME / "logs/latest.log"
     start = time.time()
     while time.time() - start < TIMEOUT:
         if audit.exists():
             break
+        if log.exists():
+            bad = [l for l in log.read_text(encoding="utf-8", errors="replace").splitlines() if any(m in l for m in FATAL)]
+            if bad:
+                kill_game()
+                sys.exit("the game failed to load:\n  " + "\n  ".join(l[:300] for l in bad[:10]))
         if proc.poll() is not None and not game_pids():
             crash = sorted((GAME / "crash-reports").glob("*.txt")) if (GAME / "crash-reports").exists() else []
             sys.exit("the game ended before the audit" + (f"; crash report: {crash[-1]}" if crash else ""))
         time.sleep(10)
     else:
-        for pid in game_pids():
-            os.kill(pid, 15)
+        kill_game()
         sys.exit(f"no audit after {TIMEOUT // 60} min")
-    end = time.time() + 180
+    # The mod now leaves the world (saving it) and quits. A game still alive 90 s later is stuck: take a thread dump
+    # with the instance's own JDK (jstack next to its java), then give it until 5 min before killing it.
+    end = time.time() + 300
+    dumped = False
     while time.time() < end and game_pids():
+        if not dumped and time.time() > end - 210:
+            dumped = True
+            for pid in game_pids():
+                dump = GAME / "haven-consolidated-threads.txt"
+                with open(dump, "w") as out:
+                    subprocess.run([str(jstack()), str(pid)], stdout=out, stderr=subprocess.STDOUT, check=False)
+                print(f"game still running 90 s after the audit; thread dump in {dump}")
         time.sleep(5)
     for pid in game_pids():
         os.kill(pid, 9)
     return audit
+
+
+def jstack() -> Path:
+    cfg = (DST / "instance.cfg").read_text(encoding="utf-8")
+    java = re.search(r"^JavaPath=(.*)$", cfg, re.M)
+    return Path(java.group(1)).parent / "jstack" if java else Path("jstack")
 
 
 def report(audit: Path):

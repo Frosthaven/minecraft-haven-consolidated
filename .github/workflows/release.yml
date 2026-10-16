@@ -1,4 +1,4 @@
-# On every push to main that changes the mod: the tests, then an immutable versioned release
+# On every push to main that changes the mod: the build, then an immutable versioned release
 # (v<mod_version>-<sha7>, the jar, for the Haven pack to pin by hash with `just bump-mod haven-consolidated`) and the
 # rolling "latest" release (linked from the README).
 name: release

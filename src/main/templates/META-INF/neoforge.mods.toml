@@ -14,10 +14,11 @@ Haven Consolidated's, in recipes, loot, tags, storage and the world. Required on
 [[mixins]]
 config="${mod_id}.mixins.json"
 
+# Any NeoForge 21.1 (built against ${neo_version}; nothing newer is used, and the snapshot instance may lag the pack).
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="[${neo_version},)"
+    versionRange="[21.1.0,)"
     ordering="NONE"
     side="BOTH"
 

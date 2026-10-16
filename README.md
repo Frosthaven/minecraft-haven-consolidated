@@ -38,7 +38,7 @@ other, and the old and new blocks and items in the chunks around players.
 
 ## Development
 
-`./gradlew build` (Gradle on JDK 17 or 21, mod on Java 21). The unit tests cover the recipe rewriting and dedupe.
-`tools/snapshot_test.py` runs the built jar against the Haven Snapshot world headless and checks the audit; see
+`./gradlew build` (Gradle on JDK 17 or 21, mod on Java 21). The test that matters is
+`tools/snapshot_test.py`: it runs the built jar against the Haven Snapshot world headless and checks the audit; see
 CLAUDE.md. Every push to `main` publishes a rolling `latest` release and an immutable `v<version>-<commit>` release,
 which the Haven pack pins by hash (`just bump-mod haven-consolidated` in minecraft-haven-pack).

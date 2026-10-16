@@ -196,7 +196,7 @@ public final class Audit {
         Map<String, Integer> oldBlocks = new TreeMap<>(), ourBlocks = new TreeMap<>();
         Map<String, Integer> oldItems = new TreeMap<>(), ourItems = new TreeMap<>();
         Set<ResourceLocation> oldBlockIds = Aliases.blocks().keySet();
-        int chunks = 0;
+        int chunks = 0, unsaved = 0;
         for (ServerLevel level : server.getAllLevels()) {
             Set<ChunkPos> centers = new HashSet<>();
             if (level.dimension().equals(net.minecraft.world.level.Level.OVERWORLD)) {
@@ -221,6 +221,9 @@ public final class Audit {
                             continue;
                         }
                         chunks++;
+                        if (chunk.isUnsaved()) {
+                            unsaved++;
+                        }
                         for (LevelChunkSection section : chunk.getSections()) {
                             if (section.hasOnlyAir()) {
                                 continue;
@@ -249,6 +252,8 @@ public final class Audit {
             }
         }
         o.addProperty("chunks", chunks);
+        o.addProperty("chunks_unsaved", unsaved);
+        o.addProperty("chunks_marked_since_start", AliasHits.markedChunks());
         o.add("old_blocks", map(oldBlocks));
         o.add("our_blocks", map(ourBlocks));
         o.add("old_items", map(oldItems));
@@ -274,7 +279,8 @@ public final class Audit {
         JsonObject a = out.getAsJsonObject("aliases"), r = out.getAsJsonObject("recipes"), w = out.getAsJsonObject("world");
         return "aliases " + a.get("resolve_ok") + " ok / " + a.getAsJsonArray("resolve_failed").size() + " failed; recipes "
                 + r.get("total") + " total, " + r.getAsJsonArray("old_item_results").size() + " with old results, "
-                + r.getAsJsonObject("lookalike_groups").size() + " lookalike groups; world " + w.get("chunks") + " chunks, old blocks "
+                + r.getAsJsonObject("lookalike_groups").size() + " lookalike groups; world " + w.get("chunks") + " chunks ("
+                + w.get("chunks_unsaved") + " unsaved, " + w.get("chunks_marked_since_start") + " marked), old blocks "
                 + w.getAsJsonObject("old_blocks") + ", our blocks " + w.getAsJsonObject("our_blocks") + ", old items "
                 + w.getAsJsonObject("old_items") + ", our items " + w.getAsJsonObject("our_items");
     }

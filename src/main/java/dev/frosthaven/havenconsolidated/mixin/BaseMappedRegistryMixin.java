@@ -1,5 +1,6 @@
 package dev.frosthaven.havenconsolidated.mixin;
 
+import dev.frosthaven.havenconsolidated.AliasHits;
 import dev.frosthaven.havenconsolidated.AliasRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.BaseMappedRegistry;
@@ -35,6 +36,7 @@ abstract class BaseMappedRegistryMixin<T> implements AliasRegistry {
         if (haven$forced != null) {
             ResourceLocation to = haven$forced.get(name);
             if (to != null) {
+                AliasHits.mark();
                 cir.setReturnValue(to);
             }
         }
