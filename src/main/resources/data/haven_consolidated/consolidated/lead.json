@@ -1,0 +1,92 @@
+{
+  "metal": "lead",
+  "name": "Lead",
+  "entries": [
+    {
+      "form": "ingot",
+      "kind": "item",
+      "id": "haven_consolidated:lead_ingot",
+      "replaces": [
+        "mekanism:ingot_lead",
+        "tfmg:lead_ingot",
+        "cgs:lead_ingot"
+      ]
+    },
+    {
+      "form": "nugget",
+      "kind": "item",
+      "id": "haven_consolidated:lead_nugget",
+      "replaces": [
+        "mekanism:nugget_lead",
+        "tfmg:lead_nugget",
+        "cgs:lead_nugget"
+      ]
+    },
+    {
+      "form": "raw",
+      "kind": "item",
+      "id": "haven_consolidated:raw_lead",
+      "replaces": [
+        "mekanism:raw_lead",
+        "tfmg:raw_lead",
+        "cgs:raw_lead"
+      ]
+    },
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:lead_dust",
+      "replaces": [
+        "mekanism:dust_lead"
+      ]
+    },
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:lead_sheet",
+      "replaces": [
+        "tfmg:lead_sheet"
+      ]
+    },
+    {
+      "form": "ore",
+      "kind": "ore",
+      "id": "haven_consolidated:lead_ore",
+      "replaces": [
+        "mekanism:lead_ore",
+        "tfmg:lead_ore",
+        "cgs:lead_ore"
+      ]
+    },
+    {
+      "form": "deepslate_ore",
+      "kind": "deepslate_ore",
+      "id": "haven_consolidated:deepslate_lead_ore",
+      "replaces": [
+        "mekanism:deepslate_lead_ore",
+        "tfmg:deepslate_lead_ore",
+        "cgs:deepslate_lead_ore"
+      ]
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:lead_block",
+      "replaces": [
+        "mekanism:block_lead",
+        "tfmg:lead_block",
+        "cgs:lead_block"
+      ]
+    },
+    {
+      "form": "raw_block",
+      "kind": "raw_block",
+      "id": "haven_consolidated:raw_lead_block",
+      "replaces": [
+        "mekanism:block_raw_lead",
+        "tfmg:raw_lead_block",
+        "cgs:raw_lead_block"
+      ]
+    }
+  ]
+}

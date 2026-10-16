@@ -1,0 +1,39 @@
+# On every push to main that changes the mod: the tests, then an immutable versioned release
+# (v<mod_version>-<sha7>, the jar, for the Haven pack to pin by hash with `just bump-mod haven-consolidated`) and the
+# rolling "latest" release (linked from the README).
+name: release
+on:
+  push:
+    branches: [main]
+    paths: [src/**, consolidated/**, build.gradle, gradle.properties, settings.gradle, gradle/**, .github/workflows/release.yml]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: release
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: 21 }
+      - run: ./gradlew --no-daemon build
+      - run: mkdir dist && cp build/libs/haven-consolidated-*.jar dist/
+      - name: Replace the latest release
+        if: github.event_name != 'pull_request'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest dist/haven-consolidated-*.jar --title "Haven Consolidated (latest)" \
+            --notes "Built from ${GITHUB_SHA::7}. Install: drop the jar into the instance's mods folder (server and clients)." --latest
+      - name: Create the versioned release
+        if: github.event_name != 'pull_request'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ver="$(grep "^mod_version=" gradle.properties | cut -d= -f2)"
+          tag="v${ver}-${GITHUB_SHA::7}"
+          gh release create "$tag" dist/haven-consolidated-*.jar \
+            --target "$GITHUB_SHA" --title "Haven Consolidated ${ver} (${GITHUB_SHA::7})" \
+            --notes "Immutable build of ${GITHUB_SHA::7}, for pinning by hash (the Haven pack). The README links the rolling 'latest'." \
+            --latest=false

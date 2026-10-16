@@ -1,0 +1,12 @@
+{
+  "block.haven_consolidated.deepslate_lead_ore": "Deepslate Lead Ore",
+  "block.haven_consolidated.lead_block": "Block of Lead",
+  "block.haven_consolidated.lead_ore": "Lead Ore",
+  "block.haven_consolidated.raw_lead_block": "Block of Raw Lead",
+  "item.haven_consolidated.lead_dust": "Lead Dust",
+  "item.haven_consolidated.lead_ingot": "Lead Ingot",
+  "item.haven_consolidated.lead_nugget": "Lead Nugget",
+  "item.haven_consolidated.lead_sheet": "Lead Sheet",
+  "item.haven_consolidated.raw_lead": "Raw Lead",
+  "itemGroup.haven_consolidated": "Haven Consolidated"
+}

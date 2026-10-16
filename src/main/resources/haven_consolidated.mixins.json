@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.frosthaven.havenconsolidated.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BaseMappedRegistryMixin",
+    "ItemMixin",
+    "ItemStackMixin",
+    "RecipeManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

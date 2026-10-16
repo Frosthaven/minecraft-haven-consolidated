@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven_consolidated:lead_ore",
+    "haven_consolidated:deepslate_lead_ore",
+    "haven_consolidated:lead_block",
+    "haven_consolidated:raw_lead_block"
+  ]
+}

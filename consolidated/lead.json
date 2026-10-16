@@ -1,0 +1,17 @@
+{
+  "metal": "lead",
+  "name": "Lead",
+  "color": "#7a86a1",
+  "tool": "stone",
+  "forms": {
+    "ingot": ["mekanism:ingot_lead", "tfmg:lead_ingot", "cgs:lead_ingot"],
+    "nugget": ["mekanism:nugget_lead", "tfmg:lead_nugget", "cgs:lead_nugget"],
+    "raw": ["mekanism:raw_lead", "tfmg:raw_lead", "cgs:raw_lead"],
+    "dust": ["mekanism:dust_lead"],
+    "sheet": ["tfmg:lead_sheet"],
+    "ore": ["mekanism:lead_ore", "tfmg:lead_ore", "cgs:lead_ore"],
+    "deepslate_ore": ["mekanism:deepslate_lead_ore", "tfmg:deepslate_lead_ore", "cgs:deepslate_lead_ore"],
+    "block": ["mekanism:block_lead", "tfmg:lead_block", "cgs:lead_block"],
+    "raw_block": ["mekanism:block_raw_lead", "tfmg:raw_lead_block", "cgs:raw_lead_block"]
+  }
+}

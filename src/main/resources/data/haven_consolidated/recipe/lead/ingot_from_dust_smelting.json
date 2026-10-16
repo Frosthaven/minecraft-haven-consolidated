@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:dusts/lead"
+  },
+  "result": {
+    "id": "haven_consolidated:lead_ingot"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

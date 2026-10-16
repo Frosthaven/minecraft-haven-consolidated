@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/lead"
+    }
+  ],
+  "result": {
+    "id": "haven_consolidated:lead_ingot",
+    "count": 9
+  }
+}

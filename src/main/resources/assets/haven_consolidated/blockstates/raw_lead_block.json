@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven_consolidated:block/raw_lead_block"
+    }
+  }
+}
