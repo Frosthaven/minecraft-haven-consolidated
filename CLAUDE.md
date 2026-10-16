@@ -37,7 +37,11 @@ Runtime, in order:
 Consequences to keep in mind:
 - The old items still exist in the registries (the owning mods reference them; they cannot be unregistered). They
   are unreachable: nothing resolves to them and no stack of them can be built. Creative tabs and JEI build stacks, so
-  they show ours in their place (no hiding code needed).
+  they show ours in their place (no hiding code needed). A tab that listed two old ids of one form (TFMG: lead ore
+  and deepslate lead ore both became our ore once; three mods' ingots in the search tab) now lists our stack twice,
+  which NeoForge rejects: `CreativeTabEventMixin` skips that check for our items (the set add drops the duplicate).
+  The headless test builds every creative tab before it leaves the world, since opening the inventory in creative
+  mode is where this crashed.
 - A stack built through `ItemStack(ItemLike, int)` takes the old item's default components as its base; for the
   plain items we replace those are identical to ours.
 - Two palette entries of one chunk section may decode to the same block; vanilla's palette copes (two ids, one state).

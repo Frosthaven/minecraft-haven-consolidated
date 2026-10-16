@@ -94,7 +94,7 @@ def game_pids():
 
 
 FATAL = ("Missing or unsupported mandatory dependencies", "Loading errors encountered", "Mixin apply failed",
-         "failed to load mixin", "Mixin transformation of")
+         "failed to load mixin", "Mixin transformation of", "Haven Consolidated: creative tabs failed")
 
 
 def kill_game(signal=15):

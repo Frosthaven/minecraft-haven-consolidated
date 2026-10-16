@@ -1,8 +1,12 @@
 package dev.frosthaven.havenconsolidated.client;
 
 import dev.frosthaven.havenconsolidated.Audit;
+import dev.frosthaven.havenconsolidated.Content;
 import dev.frosthaven.havenconsolidated.HavenConsolidated;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
@@ -29,6 +33,7 @@ public final class ClientAudit {
         if (!leaving) {
             leaving = true;
             if (mc.level != null) {
+                creativeTabs(mc);
                 HavenConsolidated.LOG.info("Haven Consolidated: audit done, saving and leaving the world");
                 mc.level.disconnect();
                 IntegratedServer server = mc.getSingleplayerServer();
@@ -43,6 +48,22 @@ public final class ClientAudit {
             stopping = true;
             HavenConsolidated.LOG.info("Haven Consolidated: world saved, quitting");
             mc.stop();
+        }
+    }
+
+    /** What opening the creative inventory does: every tab is built. A duplicate of ours in a tab used to throw here. */
+    private static void creativeTabs(Minecraft mc) {
+        try {
+            CreativeModeTabs.tryRebuildTabContents(mc.level.enabledFeatures(), true, mc.level.registryAccess());
+            int ours = 0;
+            for (ItemStack stack : CreativeModeTabs.searchTab().getSearchTabDisplayItems()) {
+                if (Content.ITEM_BY_ID.containsKey(BuiltInRegistries.ITEM.getKey(stack.getItem()))) {
+                    ours++;
+                }
+            }
+            HavenConsolidated.LOG.info("Haven Consolidated: creative tabs ok, {} of our items in the search tab", ours);
+        } catch (Throwable t) {
+            HavenConsolidated.LOG.error("Haven Consolidated: creative tabs failed", t);
         }
     }
 
