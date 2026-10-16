@@ -16,6 +16,7 @@
     "haven_consolidated:nickel_block",
     "haven_consolidated:raw_nickel_block",
     "haven_consolidated:sulfur_ore",
+    "haven_consolidated:nether_sulfur_ore",
     "haven_consolidated:sulfur_basalt_ore"
   ]
 }

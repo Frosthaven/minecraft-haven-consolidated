@@ -25,7 +25,7 @@ public final class Consolidated {
     public record FluidEntry(String id, String name, FluidKind kind, ResourceLocation fluid, ResourceLocation flowing,
                              ResourceLocation bucket, List<ResourceLocation> replaces) {}
 
-    public enum Kind { ITEM, ORE, DEEPSLATE_ORE, MOON_ORE, BASALT_ORE, BLOCK, RAW_BLOCK;
+    public enum Kind { ITEM, ORE, DEEPSLATE_ORE, NETHER_ORE, MOON_ORE, BASALT_ORE, BLOCK, RAW_BLOCK;
         boolean isBlock() { return this != ITEM; }
     }
 

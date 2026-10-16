@@ -19,9 +19,17 @@
       "kind": "ore",
       "id": "haven_consolidated:sulfur_ore",
       "replaces": [
-        "cgs:sulfur_ore",
-        "tfmg:sulfur",
         "create_mf:sulfur_ore"
+      ],
+      "art": "create_mf:sulfur_ore"
+    },
+    {
+      "form": "nether_ore",
+      "kind": "nether_ore",
+      "id": "haven_consolidated:nether_sulfur_ore",
+      "replaces": [
+        "cgs:sulfur_ore",
+        "tfmg:sulfur"
       ],
       "art": "cgs:sulfur_ore"
     },

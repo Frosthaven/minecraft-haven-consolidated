@@ -29,7 +29,7 @@ Required on the server and on every client. Nothing to configure.
 | Aluminum | ingot, nugget, raw, sheet, wire, moon ore, block, raw block | TFMG, Creating Space |
 | Bronze | ingot, nugget, dust, block | Create Big Cannons, Mekanism |
 | Cast iron | ingot, nugget, sheet, block | Create Big Cannons, TFMG |
-| Sulfur | sulfur, ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
+| Sulfur | sulfur, ore, nether ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
 | Single forms | charcoal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
 | Fluids | crude oil, diesel, gasoline, plant oil, bioethanol, dragon's breath, molten steel, hydrogen, oxygen | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad |
 

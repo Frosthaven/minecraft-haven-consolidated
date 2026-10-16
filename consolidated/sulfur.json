@@ -2,6 +2,7 @@
  "names": {"dust": "Sulfur"},
  "forms": {
   "dust": ["cgs:sulfur", "tfmg:sulfur_dust", "mekanism:dust_sulfur", "create_mf:sulfur"],
-  "ore": ["cgs:sulfur_ore", "tfmg:sulfur", "create_mf:sulfur_ore"],
+  "ore": ["create_mf:sulfur_ore"],
+  "nether_ore": ["cgs:sulfur_ore", "tfmg:sulfur"],
   "basalt_ore": ["create_mf:sulfur_basalt_ore"]
  }}

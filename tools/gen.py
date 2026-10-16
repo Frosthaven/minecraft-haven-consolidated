@@ -42,14 +42,17 @@ FORMS = {
     "wire": ("{m}_wire", "item", "{n} Wire", "wires"),
     "ore": ("{m}_ore", "ore", "{n} Ore", "ores"),
     "deepslate_ore": ("deepslate_{m}_ore", "deepslate_ore", "Deepslate {n} Ore", "ores"),
+    "nether_ore": ("nether_{m}_ore", "nether_ore", "Nether {n} Ore", "ores"),
     "moon_ore": ("moon_{m}_ore", "moon_ore", "Moon {n} Ore", "ores"),
     "basalt_ore": ("{m}_basalt_ore", "basalt_ore", "{n} Basalt Ore", "ores"),
     "block": ("{m}_block", "block", "Block of {n}", "storage_blocks"),
     "raw_block": ("raw_{m}_block", "raw_block", "Block of Raw {n}", "storage_blocks"),
 }
-ORE_KINDS = {"ore", "deepslate_ore", "moon_ore", "basalt_ore"}
+# One form per host rock, so an ore keeps the look of the rock it sits in (an ore form holds only sources that
+# generate in that rock: stone, deepslate, netherrack, moon stone, basalt).
+ORE_KINDS = {"ore", "deepslate_ore", "nether_ore", "moon_ore", "basalt_ore"}
 BLOCK_KINDS = ORE_KINDS | {"block", "raw_block"}
-GROUND = {"ore": "stone", "deepslate_ore": "deepslate"}
+GROUND = {"ore": "stone", "deepslate_ore": "deepslate", "nether_ore": "netherrack"}
 
 
 def write(path: Path, data):

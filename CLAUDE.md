@@ -9,8 +9,11 @@ replace) -> `tools/gen.py` -> `src/main/resources/data/haven_consolidated/consol
 startup) plus the look, lang, `c:` tags, loot tables and the standard recipes (inputs by tag, results ours).
 Everything under `assets/haven_consolidated` and `data/` is generated: edit the source file and rerun
 `uv run --with pillow python -I tools/gen.py --mods <the pack's mods folder>` (or `HAVEN_MODS`), never the output.
-Forms: ingot, nugget, raw, dust, sheet, rod, wire, ore, deepslate_ore, moon_ore, basalt_ore, block, raw_block;
-`names` overrides a form's display name ("Niter", "Sulfur"), `ore_drop` names the form an ore drops (default raw).
+Forms: ingot, nugget, raw, dust, sheet, rod, wire, ore, deepslate_ore, nether_ore, moon_ore, basalt_ore, block,
+raw_block; `names` overrides a form's display name ("Niter", "Sulfur"), `ore_drop` names the form an ore drops
+(default raw). One ore form per host rock: an ore keeps the look of the rock it generates in, so a form holds
+only sources that generate in that rock (Gunsmithing's sulfur ore sits in netherrack and More Features' in stone:
+nether_ore and ore, not one). Check a new ore's placed feature targets before filing it.
 Cogwheels are left out on purpose: they are Create kinetic blocks with behaviour, not plain items.
 
 Fluids (`consolidated/fluids/<fluid>.json`: `fluid`, `name`, `kind` liquid|oil|gas|molten, `tags`, `replaces` = the

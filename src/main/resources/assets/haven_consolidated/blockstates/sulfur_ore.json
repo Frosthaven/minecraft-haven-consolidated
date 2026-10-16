@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "cgs:block/sulfur_ore"
+      "model": "create_mf:block/sulfur_ore"
     }
   }
 }
