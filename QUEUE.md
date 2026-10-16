@@ -101,3 +101,23 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 ## 16. zinc
 
 - plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet
+## Fluids (queued 2026-10-16, after the survey of fluid tags, names and buckets)
+
+Same mechanism as items: a fluid is stored everywhere as `{"id": "<fluid id>", "amount": n}` (NeoForge FluidStack codec,
+`BuiltInRegistries.FLUID.holderByNameCodec()`: tanks, buckets, Create and Mekanism tank items, AE2 fluid cells, pipes),
+recipes name fluids by id or tag, fluid blocks in the world are block states, buckets are items. Needs: our fluid
+(source + flowing, FluidType with the art source's textures, LiquidBlock, bucket), FLUID registry alias, a FluidStack
+constructor redirect and `is(Fluid)` like ItemStack, fluid-aware recipe dedupe. Each entry: ours <- the old fluids.
+
+- crude_oil: createdieselgenerators:crude_oil, tfmg:crude_oil (decide: ad_astra:oil "Oil", tag c:oil, is it the same?)
+- diesel: createdieselgenerators:diesel, tfmg:diesel
+- gasoline: createdieselgenerators:gasoline, tfmg:gasoline
+- plant_oil: createdieselgenerators:plant_oil, electroenergetics:plant_oil, createaddition:seed_oil
+- molten_steel: createbigcannons:molten_steel, tfmg:molten_steel (do with steel)
+- bioethanol: mekanismgenerators:bioethanol, createaddition:bioethanol, createdieselgenerators:ethanol (three tags:
+  c:bioethanol, c:biofuel, c:ethanol; decide the name)
+- dragon_breath: create_dragons_plus:dragon_breath, garnished:dragon_breath (not Enchantment Industry's infused one)
+- hydrogen: ad_astra:hydrogen, mekanism:hydrogen, tfmg:hydrogen, createbb:hydrogen (last: life support, rockets and
+  chemistry use these in code, not only recipes; Mekanism's is the liquid form of its chemical)
+- oxygen: ad_astra:oxygen, mekanism:oxygen, create_submarine:oxygen, createbb:oxygen (same caution; Creating Space's
+  liquid oxygen/hydrogen are different fluids)
