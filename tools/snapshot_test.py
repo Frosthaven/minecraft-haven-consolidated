@@ -187,7 +187,7 @@ def report(audit: Path):
         text = log.read_text(encoding="utf-8", errors="replace")
         print("== log ==")
         for line in text.splitlines():
-            if "Haven Consolidated" in line or "haven_consolidated" in line.lower() and ("ERROR" in line or "WARN" in line) \
+            if "dev.frosthaven.havenconsolidated" in line or "haven_consolidated" in line.lower() and ("ERROR" in line or "WARN" in line) \
                     or "Mixin apply" in line and "failed" in line:
                 print(" ", line[:300])
     print("== saved world ==")
