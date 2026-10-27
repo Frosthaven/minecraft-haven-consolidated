@@ -1,8 +1,10 @@
 {"metal": "nickel", "name": "Nickel", "art": ["tfmg", "creatingspace"], "color": "#c9c4a8", "tool": "stone",
+ "dust_smelts": false,
  "forms": {
   "ingot": ["tfmg:nickel_ingot", "creatingspace:nickel_ingot"],
   "nugget": ["tfmg:nickel_nugget", "creatingspace:nickel_nugget"],
   "raw": ["tfmg:raw_nickel", "creatingspace:raw_nickel"],
+  "dust": ["creatingspace:nickel_dust"],
   "sheet": ["tfmg:nickel_sheet", "creatingspace:nickel_sheet"],
   "ore": ["tfmg:nickel_ore", "creatingspace:nickel_ore"],
   "deepslate_ore": ["tfmg:deepslate_nickel_ore", "creatingspace:deepslate_nickel_ore"],

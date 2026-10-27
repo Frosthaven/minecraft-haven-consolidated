@@ -218,7 +218,7 @@ def gen_metal(metal: dict, lang: dict, index: list, jars: Jars):
             lang[f"item.{NS}.{name}"] = display
             tag("c", "item", f"{folder}/{m}", [hc])
             tag("c", "item", folder, [f"#c:{folder}/{m}"])
-    gen_recipes(m, ids)
+    gen_recipes(m, ids, metal.get("dust_smelts", True))
     write(DATA / NS / "consolidated" / f"{m}.json", {"metal": m, "name": n, "entries": entries})
     index.append(m)
     print(f"{m}: " + ", ".join(f"{e['form']} <- {e['art']}" for e in entries))
@@ -256,8 +256,10 @@ def recipe(name: str, data: dict):
     write(DATA / NS / "recipe" / name, data)
 
 
-def gen_recipes(m: str, ids: dict):
-    """The standard set, inputs by tag so every copy of a metal feeds them; results are ours."""
+def gen_recipes(m: str, ids: dict, dust_smelts: bool = True):
+    """The standard set, inputs by tag so every copy of a metal feeds them; results are ours. `dust_smelts` false
+    leaves out the dust smelting and blasting: for a metal whose only dust is crushed from its ingots (Creating Space's
+    nickel dust, 2.5 per ingot), smelting the dust back would be an ingot loop."""
     ingot, nugget, raw, dust, sheet = (ids.get(k) for k in ("ingot", "nugget", "raw", "dust", "sheet"))
     block, raw_block = ids.get("block"), ids.get("raw_block")
     if ingot and block:
@@ -282,7 +284,7 @@ def gen_recipes(m: str, ids: dict):
             sources.append(("raw", f"c:raw_materials/{m}", 0.7))
         if any(k in ids for k in ORE_KINDS):
             sources.append(("ore", f"c:ores/{m}", 0.7))
-        if dust:
+        if dust and dust_smelts:
             sources.append(("dust", f"c:dusts/{m}", 0.3))
         for src, t, xp in sources:
             for kind, ticks in (("smelting", 200), ("blasting", 100)):

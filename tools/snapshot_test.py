@@ -2,12 +2,16 @@
 
 1. Prism instance "Haven Consolidated Test" = a copy of "Haven Snapshot" (the pack's client with the downloaded
    world) with the jar from build/libs in mods/ and the JVM flags that make the mod audit itself and quit.
+   `--instance <name>` copies another Prism instance instead (a newer pack's client, e.g. "Haven Dev": its mods,
+   configs and NeoForge) and brings the snapshot world over from "Haven Snapshot"; `--skip <path>` (repeatable)
+   deletes more of the copy, e.g. a dev-only jar: `--skip mods/zz-haven-harness.jar`.
 2. Launches it on the snapshot world under Xvfb (offline player "Tester"), waits for haven-consolidated-audit.json,
    then for the game to exit.
 3. Prints the audit summary, the mod's log lines and any mixin or crash lines, and runs tools/world_scan.py on the
    saved world: the chunks the session loaded hold none of the old ids any more.
 
 Run: ./gradlew build, then  uv run --with nbtlib --with numpy python -I tools/snapshot_test.py [--keep]
+     [--instance <Prism instance>] [--skip <relative path>]...
 Needs: prismlauncher, xvfb-run. --keep leaves the test instance for a look in Prism (else it is deleted).
 """
 import json
@@ -21,7 +25,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 PRISM = Path.home() / ".local/share/PrismLauncher"
-SRC = PRISM / "instances/Haven Snapshot"
+SNAPSHOT = PRISM / "instances/Haven Snapshot"   # the pack client with the owner's downloaded world
 NAME = "Haven Consolidated Test"
 DST = PRISM / "instances" / NAME
 GAME = DST / "minecraft"
@@ -39,16 +43,29 @@ def jar() -> Path:
     return path
 
 
-def copy_instance():
+def arg(flag, default):
+    return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv else default
+
+
+def copy_instance(src: Path, skip: list):
     if DST.exists():
         shutil.rmtree(DST)
-    subprocess.run(["cp", "-a", "--reflink=auto", str(SRC), str(DST)], check=True)
-    for rel in SKIP:
-        shutil.rmtree(GAME / rel, ignore_errors=True)
+    subprocess.run(["cp", "-a", "--reflink=auto", str(src), str(DST)], check=True)
+    for rel in SKIP + skip:
+        path = GAME / rel
+        if path.is_file():
+            path.unlink()
+        else:
+            shutil.rmtree(path, ignore_errors=True)
+    world = GAME / "saves" / WORLD
+    if not world.exists():   # another pack client: it runs the snapshot world
+        world.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["cp", "-a", "--reflink=auto", str(SNAPSHOT / "minecraft/saves" / WORLD), str(world)], check=True)
     cfg = DST / "instance.cfg"
     text = cfg.read_text(encoding="utf-8")
     for key, value in {"name": NAME, "OverrideJavaArgs": "true", "JvmArgs": JVM_ARGS, "PreLaunchCommand": "",
-                       "OverrideCommands": "true", "ShowConsole": "false", "QuitAfterGameStop": "true"}.items():
+                       "PostExitCommand": "", "WrapperCommand": "", "OverrideCommands": "true", "ShowConsole": "false",
+                       "QuitAfterGameStop": "true"}.items():
         text = re.sub(rf"^{key}=.*$", f"{key}={value}", text, flags=re.M) if re.search(rf"^{key}=", text, re.M) \
             else text.replace("[General]\n", f"[General]\n{key}={value}\n", 1)
     cfg.write_text(text, encoding="utf-8")
@@ -173,7 +190,9 @@ def report(audit: Path):
 
 
 def main():
-    copy_instance()
+    src = PRISM / "instances" / arg("--instance", "Haven Snapshot")
+    skip = [sys.argv[i + 1] for i, a in enumerate(sys.argv) if a == "--skip" and i + 1 < len(sys.argv)]
+    copy_instance(src, skip)
     install()
     proc = launch()
     print(f"launched {NAME} on {WORLD}; waiting for the audit (up to {TIMEOUT // 60} min)")

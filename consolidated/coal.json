@@ -1,0 +1,2 @@
+{"metal": "coal", "name": "Coal", "art": ["creatingspace", "mekanism"], "color": "#2e2e32",
+ "forms": {"dust": ["creatingspace:coal_dust", "mekanism:dust_coal"]}}

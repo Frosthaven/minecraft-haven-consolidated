@@ -33,6 +33,15 @@
       "art": "tfmg:raw_nickel"
     },
     {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:nickel_dust",
+      "replaces": [
+        "creatingspace:nickel_dust"
+      ],
+      "art": "creatingspace:nickel_dust"
+    },
+    {
       "form": "sheet",
       "kind": "item",
       "id": "haven_consolidated:nickel_sheet",

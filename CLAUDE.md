@@ -81,7 +81,8 @@ Consequences to keep in mind:
 2. Write `consolidated/<metal>.json`: `metal`, `name`, `art` (source mod ids in the order their look is taken),
    `color` (hex, the fallback sprites' base), `tool` (stone|iron), and `forms` (ingot, nugget, raw, dust, sheet, ore,
    deepslate_ore, block, raw_block; each a list of old ids). A form with an empty list is still registered (ours
-   only, sprite look).
+   only, sprite look). `dust_smelts: false` leaves out the standard dust smelting and blasting recipes: for a metal
+   whose only dust is crushed from its ingots (Creating Space's nickel dust, 2.5 per ingot) they would be an ingot loop.
 3. `uv run --with pillow python -I tools/gen.py --mods <mods folder>`, `./gradlew build`, then the snapshot test.
 
 ## Testing a dedicated-server join (the test single player cannot run)

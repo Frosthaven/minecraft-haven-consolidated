@@ -1,0 +1,16 @@
+{
+  "metal": "coal",
+  "name": "Coal",
+  "entries": [
+    {
+      "form": "dust",
+      "kind": "item",
+      "id": "haven_consolidated:coal_dust",
+      "replaces": [
+        "creatingspace:coal_dust",
+        "mekanism:dust_coal"
+      ],
+      "art": "creatingspace:coal_dust"
+    }
+  ]
+}

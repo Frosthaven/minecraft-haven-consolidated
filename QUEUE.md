@@ -14,6 +14,8 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 - ingots (dup): tfmg:nickel_ingot, creatingspace:nickel_ingot
 - nuggets (dup): tfmg:nickel_nugget, creatingspace:nickel_nugget
 - raw_materials (dup): tfmg:raw_nickel, creatingspace:raw_nickel
+- dusts: creatingspace:nickel_dust (Creating Space 1.7.20 in the 12.8.0 pack, 2026-10-27; crushed from ingots, 2.5 per
+  ingot, no smelting back: `dust_smelts` false)
 - plates (dup): tfmg:nickel_sheet, creatingspace:nickel_sheet
 - ores (dup): tfmg:deepslate_nickel_ore, tfmg:nickel_ore, creatingspace:deepslate_nickel_ore, creatingspace:moon_nickel_ore, creatingspace:nickel_ore, creatingspace:raw_nickel
 - storage_blocks (dup): tfmg:nickel_block, creatingspace:nickel_block
@@ -102,6 +104,10 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 ## 16. zinc
 
 - plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet
+
+## 17. coal
+
+- dusts (dup): creatingspace:coal_dust, mekanism:dust_coal (Creating Space 1.7.20 in the 12.8.0 pack, 2026-10-27)
 ## Fluids (built 2026-10-16, after the survey of fluid tags, names and buckets)
 
 Same mechanism as items: a fluid is stored everywhere as `{"id": "<fluid id>", "amount": n}` (NeoForge FluidStack codec,

@@ -24,7 +24,7 @@ Required on the server and on every client. Nothing to configure.
 | Chain | Forms | Replaces |
 |---|---|---|
 | Lead | ingot, nugget, raw, dust, sheet, ore, deepslate ore, block, raw block | Mekanism, Create: The Factory Must Grow, Create: Gunsmithing |
-| Nickel | ingot, nugget, raw, sheet, ore, deepslate ore, moon ore, block, raw block | TFMG, Creating Space |
+| Nickel | ingot, nugget, raw, dust, sheet, ore, deepslate ore, moon ore, block, raw block | TFMG, Creating Space |
 | Steel | ingot, nugget, dust, sheet, rod, block | Gunsmithing, TFMG, Create Big Cannons, Ad Astra, Mekanism |
 | Aluminum | ingot, nugget, raw, sheet, wire, moon ore, block, raw block | TFMG, Creating Space |
 | Bronze | ingot, nugget, dust, block | Create Big Cannons, Mekanism |
@@ -32,7 +32,7 @@ Required on the server and on every client. Nothing to configure.
 | Sulfur | sulfur, ore, nether ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
 | Lithium | ingot, nugget, raw, dust, ore, deepslate ore, block | TFMG, Create: Solarpunk, Mekanism |
 | Salt | salt, salt block | Mekanism, Create: Solarpunk |
-| Single forms | charcoal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
+| Single forms | charcoal dust, coal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
 | Fluids | crude oil, diesel, gasoline, plant oil, bioethanol (also Solarpunk's biofuel), dragon's breath, molten steel, hydrogen, oxygen, steam, deuterium, fertilizer | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Mekanism Generators, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad, Create: Solarpunk, Slice & Dice |
 
 `consolidated/<metal>.json` and `consolidated/fluids/<fluid>.json` list what each one replaces; ids of mods that are
