@@ -116,10 +116,15 @@ FATAL = ("Missing or unsupported mandatory dependencies", "Loading errors encoun
          "failed to load mixin", "Mixin transformation of", "Haven Consolidated: creative tabs failed")
 
 
-def kill_game(signal=15):
+def kill_game(proc: subprocess.Popen = None, signal=15):
     for pid in game_pids():
         os.kill(pid, signal)
     subprocess.run(["pkill", "-f", f"prismlauncher --launch {NAME}"], check=False)
+    if proc is not None:   # xvfb-run's session (launch: start_new_session): the pkill alone leaves its Xvfb behind
+        try:
+            os.killpg(proc.pid, signal)
+        except ProcessLookupError:
+            pass
 
 
 def wait(proc: subprocess.Popen) -> Path:
@@ -133,14 +138,14 @@ def wait(proc: subprocess.Popen) -> Path:
         if log.exists():
             bad = [l for l in log.read_text(encoding="utf-8", errors="replace").splitlines() if any(m in l for m in FATAL)]
             if bad:
-                kill_game()
+                kill_game(proc)
                 sys.exit("the game failed to load:\n  " + "\n  ".join(l[:300] for l in bad[:10]))
         if proc.poll() is not None and not game_pids():
             crash = sorted((GAME / "crash-reports").glob("*.txt")) if (GAME / "crash-reports").exists() else []
             sys.exit("the game ended before the audit" + (f"; crash report: {crash[-1]}" if crash else ""))
         time.sleep(10)
     else:
-        kill_game()
+        kill_game(proc)
         sys.exit(f"no audit after {TIMEOUT // 60} min")
     # The mod now leaves the world (saving it) and quits. A game still alive 90 s later is stuck: take a thread dump
     # with the instance's own JDK (jstack next to its java), then give it until 5 min before killing it.
