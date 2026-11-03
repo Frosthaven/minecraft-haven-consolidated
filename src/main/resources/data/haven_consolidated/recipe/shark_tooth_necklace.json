@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "livingthings:shark_tooth"
+    },
+    {
+      "item": "livingthings:shark_tooth"
+    },
+    {
+      "item": "livingthings:shark_tooth"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "result": {
+    "id": "haven_consolidated:shark_tooth_necklace",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "livingthings"
+    }
+  ]
+}

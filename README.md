@@ -14,6 +14,15 @@ ship a steel ingot; after this mod there is one of each, Haven Consolidated's, a
 
 Required on the server and on every client. Nothing to configure.
 
+## Own items
+
+| Item | Recipe | What it does |
+|---|---|---|
+| Shark Tooth Necklace | shapeless: 3 Shark Teeth (Living Things; sharks drop 0 to 3) and 1 String | Worn in a Curios necklace slot: Living Things' sharks do not take you as a new target. Create Submarine's Abyss sharks are not fooled. |
+| Pufferfish Spine Bracelet | shapeless: 2 Pufferfish and 1 Dried Kelp | Worn in a Curios bracelet slot: Creeper Overhaul's Ocean Creepers do not take you as a new target, and pufferfish do not puff up at you or sting you. |
+
+Both follow the same rule: a mob you hit fights back (for 5 seconds, vanilla's memory of its last attacker), a mob that already hunts you keeps hunting when you put the item on, and without it they find you again at their next search. Players get the necklace and bracelet slots from this mod, whether or not another mod adds them.
+
 ## Download
 
 **[Latest build](https://github.com/Frosthaven/minecraft-haven-consolidated/releases/latest)**: drop the jar into
@@ -32,6 +41,7 @@ Required on the server and on every client. Nothing to configure.
 | Sulfur | sulfur, ore, nether ore, basalt ore | Gunsmithing, TFMG, Create: More Features, Mekanism |
 | Lithium | ingot, nugget, raw, dust, ore, deepslate ore, block | TFMG, Create: Solarpunk, Mekanism |
 | Salt | salt, salt block | Mekanism, Create: Solarpunk |
+| Silicon | silicon, silicon block | AE2, Refined Storage, TFMG (silicon ingot), ExtendedAE (silicon block) |
 | Single forms | charcoal dust, coal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
 | Fluids | crude oil, diesel, gasoline, plant oil, bioethanol (also Solarpunk's biofuel), dragon's breath, molten steel, hydrogen, oxygen, steam, deuterium, fertilizer | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Mekanism Generators, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad, Create: Solarpunk, Slice & Dice |
 

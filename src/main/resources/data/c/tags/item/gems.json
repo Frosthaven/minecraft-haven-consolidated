@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:gems/salt"
+    "#c:gems/salt",
+    "#c:gems/silicon"
   ]
 }

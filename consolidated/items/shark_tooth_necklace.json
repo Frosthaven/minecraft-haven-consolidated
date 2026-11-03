@@ -1,0 +1,12 @@
+{
+  "item": "shark_tooth_necklace",
+  "name": "Shark Tooth Necklace",
+  "tooltip": ["Surface sharks ignore you", "unless you attack them"],
+  "sprite": "shark_tooth_necklace",
+  "curios_slots": ["necklace"],
+  "calms": [{"id": "livingthings:shark", "required": false}],
+  "recipe": {
+    "mod": "livingthings",
+    "ingredients": ["livingthings:shark_tooth", "livingthings:shark_tooth", "livingthings:shark_tooth", "minecraft:string"]
+  }
+}

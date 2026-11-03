@@ -1,0 +1,6 @@
+{"metal": "silicon", "name": "Silicon", "art": ["ae2", "refinedstorage", "tfmg", "extendedae"], "color": "#8f8f96", "tool": "stone",
+ "names": {"block": "Block of Silicon"},
+ "forms": {
+  "gem": ["ae2:silicon", "refinedstorage:silicon", "tfmg:silicon_ingot"],
+  "block": ["extendedae:silicon_block"]
+ }}

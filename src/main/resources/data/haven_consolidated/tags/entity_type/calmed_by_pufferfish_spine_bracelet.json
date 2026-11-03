@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "creeperoverhaul:ocean_creeper",
+      "required": false
+    },
+    "minecraft:pufferfish"
+  ]
+}

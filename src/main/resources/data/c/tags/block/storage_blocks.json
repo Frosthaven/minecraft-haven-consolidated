@@ -11,6 +11,7 @@
     "#c:storage_blocks/nickel",
     "#c:storage_blocks/raw_nickel",
     "#c:storage_blocks/salt",
+    "#c:storage_blocks/silicon",
     "#c:storage_blocks/steel"
   ]
 }

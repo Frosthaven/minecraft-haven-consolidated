@@ -1,0 +1,12 @@
+{
+  "item": "pufferfish_spine_bracelet",
+  "name": "Pufferfish Spine Bracelet",
+  "tooltip": ["Ocean Creepers and pufferfish ignore you", "unless you attack them"],
+  "sprite": "pufferfish_spine_bracelet",
+  "curios_slots": ["bracelet"],
+  "calms": [{"id": "creeperoverhaul:ocean_creeper", "required": false}, "minecraft:pufferfish"],
+  "recipe": {
+    "mod": "curios",
+    "ingredients": ["minecraft:pufferfish", "minecraft:pufferfish", "minecraft:dried_kelp"]
+  }
+}

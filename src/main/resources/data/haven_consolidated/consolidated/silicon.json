@@ -1,0 +1,26 @@
+{
+  "metal": "silicon",
+  "name": "Silicon",
+  "entries": [
+    {
+      "form": "gem",
+      "kind": "item",
+      "id": "haven_consolidated:silicon",
+      "replaces": [
+        "ae2:silicon",
+        "refinedstorage:silicon",
+        "tfmg:silicon_ingot"
+      ],
+      "art": "ae2:silicon"
+    },
+    {
+      "form": "block",
+      "kind": "block",
+      "id": "haven_consolidated:silicon_block",
+      "replaces": [
+        "extendedae:silicon_block"
+      ],
+      "art": "extendedae:silicon_block"
+    }
+  ]
+}

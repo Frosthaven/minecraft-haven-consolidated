@@ -1,6 +1,7 @@
 package dev.frosthaven.havenconsolidated;
 
 import com.mojang.logging.LogUtils;
+import dev.frosthaven.havenconsolidated.calm.Calm;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -25,6 +26,7 @@ import org.slf4j.Logger;
  * <li>{@link Audit}: {@code /consolidated audit}, or {@code -Dhaven_consolidated.audit=true} at server start, writes
  *     what is left of the old ids (nothing, when it works) to {@code haven-consolidated-audit.json}.</li>
  * </ul>
+ * Its own items: calming accessories ({@link Calm}).
  */
 @Mod(HavenConsolidated.ID)
 public final class HavenConsolidated {
@@ -34,6 +36,7 @@ public final class HavenConsolidated {
     public HavenConsolidated(IEventBus modBus, ModContainer container) {
         Consolidated.load();
         Content.register(modBus);
+        Calm.register(modBus);
         modBus.addListener(FMLCommonSetupEvent.class, e -> e.enqueueWork(Aliases::activate));
         NeoForge.EVENT_BUS.addListener(ChunkDataEvent.Load.class, AliasHits::onChunkRead);
         NeoForge.EVENT_BUS.addListener(ChunkEvent.Load.class, AliasHits::onChunkLoad);

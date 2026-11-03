@@ -22,6 +22,7 @@ import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import item_sprites  # noqa: E402
 import textures  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -296,6 +297,35 @@ def gen_recipes(m: str, ids: dict, dust_smelts: bool = True):
                "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": "create"}]})
 
 
+def gen_item(spec: dict, lang: dict):
+    """One of the mod's own items (consolidated/items/<item>.json): model, sprite, name and tooltip lines, the Curios
+    slots it fits (and players get them), the mobs it calms (entity tag `calmed_by_<item>`) and a shapeless recipe while
+    its mod is loaded."""
+    name = spec["item"]
+    write(ASSETS / "models" / "item" / f"{name}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"{NS}:item/{name}"}})
+    png = ASSETS / "textures" / "item" / f"{name}.png"
+    png.parent.mkdir(parents=True, exist_ok=True)
+    item_sprites.SPRITES[spec["sprite"]]().save(png)
+    lang[f"item.{NS}.{name}"] = spec["name"]
+    for i, line in enumerate(spec.get("tooltip", [])):
+        lang[f"item.{NS}.{name}.tooltip.{i}"] = line
+    for slot in spec.get("curios_slots", []):
+        tag("curios", "item", slot, [f"{NS}:{name}"])
+    if spec.get("curios_slots"):   # players get the slot even when no other mod gives it (Curios merges these files)
+        path = DATA / NS / "curios" / "entities" / "players.json"
+        current = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"entities": ["minecraft:player"], "slots": []}
+        current["slots"] = sorted(set(current["slots"]) | set(spec["curios_slots"]))
+        write(path, current)
+    if spec.get("calms"):
+        tag(NS, "entity_type", f"calmed_by_{name}", spec["calms"])
+    recipe = spec["recipe"]
+    write(DATA / NS / "recipe" / f"{name}.json",
+          {"type": "minecraft:crafting_shapeless", "category": "equipment",
+           "ingredients": [{"item": i} for i in recipe["ingredients"]],
+           "result": {"id": f"{NS}:{name}", "count": 1},
+           "neoforge:conditions": [{"type": "neoforge:mod_loaded", "modid": recipe["mod"]}]})
+
+
 def main():
     mods = [os.environ["HAVEN_MODS"]] if os.environ.get("HAVEN_MODS") else []
     mods += [sys.argv[i + 1] for i, a in enumerate(sys.argv) if a == "--mods" and i + 1 < len(sys.argv)]
@@ -310,6 +340,8 @@ def main():
         gen_metal(json.loads(path.read_text(encoding="utf-8")), lang, metals, jars)
     for path in sorted((REPO / "consolidated" / "fluids").glob("*.json")):
         gen_fluid(json.loads(path.read_text(encoding="utf-8")), lang, fluids, jars)
+    for path in sorted((REPO / "consolidated" / "items").glob("*.json")):
+        gen_item(json.loads(path.read_text(encoding="utf-8")), lang)
     write(ASSETS / "lang" / "en_us.json", dict(sorted(lang.items())))
     write(DATA / NS / "consolidated" / "index.json", {"metals": metals, "fluids": fluids})
     print(f"generated {len(metals)} metal(s) and {len(fluids)} fluid(s)")

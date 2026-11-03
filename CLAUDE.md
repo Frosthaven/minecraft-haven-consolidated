@@ -75,6 +75,28 @@ Consequences to keep in mind:
 - AE2 storage cells load entries with a plain put per key; two different old ids of one metal on the same cell would
   collapse to one key and keep the last count. The 2026-10-12 snapshot had no such cell (no cell held any old metal).
 
+## Own items (not metals)
+
+`consolidated/items/<item>.json` (`item`, `name`, `tooltip` lines, `sprite`, `curios_slots`, `calms`, `recipe` with
+the `mod` that must be loaded) -> `gen.py`'s `gen_item`: item model, sprite from `tools/item_sprites.py` (pixel art,
+never hand-edit the PNG), lang (`item.haven_consolidated.<item>.tooltip.<n>`), `curios:<slot>` item tags, the slots for
+players (`data/haven_consolidated/curios/entities/players.json`), the entity tag `haven_consolidated:calmed_by_<item>`
+and a shapeless recipe with a `neoforge:mod_loaded` condition. Java: `calm/` (`Calm` registers the items in `ALL` and
+holds the rule; `CalmingItem`: stack size 1, tooltip, its tag). A new calming item = a spec file, a sprite, one entry
+in `Calm.ALL`.
+
+The rule (`Calm.ignores(mob, player)`): the mob is in the tag of an item the player wears (Curios' `getCuriosInventory`
+/ `isEquipped(Item)` by method handles, no build dependency), and it neither targets that player already nor was last
+hurt by them (vanilla keeps the last attacker 100 ticks). `Calm` cancels `LivingChangeTargetEvent` with it, so only new
+targets are refused and a hunt in progress never drops. Pufferfish never target: `PufferfishPuffMixin` (the puff goal's
+`getEntitiesOfClass` leaves out an ignored player) and `PufferfishStingMixin` (`playerTouch` HEAD cancel).
+Living Things' shark and Creeper Overhaul's Ocean Creeper use vanilla target goals (`NearestAttackableTargetGoal<Player>`
++ `HurtByTargetGoal`). Left out on the owner's choice: Create Submarine's Cookiecutter Shark (picks players itself in
+`ChargePlayerGoal.canUse` -> `Level.getNearestPlayer(16)`; the Abyss stays dangerous), Cataclysm's Lionfish, Deepling
+Angler and Urchinkin (structure mobs). Test: the throwaway steps mod's arena (a walled pool high in the overworld, mob
+spawning off: a Nether arena drained and let piglins hit the player), the four target cases per mob, puff and sting
+checks for pufferfish.
+
 ## Adding a metal
 
 1. Survey: `python3 -I tools/survey.py <pack repo> <mods dir>...` lists every metal form more than one mod adds.

@@ -12,6 +12,8 @@
     "ItemMixin",
     "ItemStackMixin",
     "MappedRegistryMixin",
+    "PufferfishPuffMixin",
+    "PufferfishStingMixin",
     "RecipeManagerMixin"
   ],
   "injectors": {
