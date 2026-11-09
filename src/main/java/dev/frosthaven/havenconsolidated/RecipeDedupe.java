@@ -40,7 +40,11 @@ public final class RecipeDedupe {
             }
         }
         String own = HavenConsolidated.ID + ":";
-        ours.sort(Comparator.comparing((RecipeHolder<?> h) -> !h.id().toString().startsWith(own)).thenComparing(h -> h.id().toString()));
+        // The kept copy of identical recipes: ours first, then the one from the result's own mod (Haven Backports'
+        // Mojang recipes for its merge targets), then by id.
+        ours.sort(Comparator.comparing((RecipeHolder<?> h) -> !h.id().toString().startsWith(own))
+                .thenComparing(h -> !h.id().getNamespace().equals(resultNamespace(h.value(), registries)))
+                .thenComparing(h -> h.id().toString()));
         Map<String, ResourceLocation> seen = new HashMap<>();
         Set<ResourceLocation> dropped = new LinkedHashSet<>();
         List<String> lines = new ArrayList<>();
@@ -172,4 +176,14 @@ public final class RecipeDedupe {
     }
 
     private RecipeDedupe() {}
+
+    /** The namespace of a recipe's item result, or "" (fluid-only results). */
+    private static String resultNamespace(net.minecraft.world.item.crafting.Recipe<?> recipe, HolderLookup.Provider registries) {
+        try {
+            net.minecraft.world.item.ItemStack result = recipe.getResultItem(registries);
+            return result == null || result.isEmpty() ? "" : BuiltInRegistries.ITEM.getKey(result.getItem()).getNamespace();
+        } catch (RuntimeException e) {
+            return "";
+        }
+    }
 }
