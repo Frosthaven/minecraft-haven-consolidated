@@ -96,7 +96,7 @@ public final class AliasHits {
         if (oldBlocks == null) {
             Map<Block, Block> m = new HashMap<>();
             for (Map.Entry<ResourceLocation, ResourceLocation> e : Aliases.blocks().entrySet()) {
-                m.put(BuiltInRegistries.BLOCK.get(e.getKey()), Content.BLOCK_BY_ID.get(e.getValue()).get());
+                m.put(BuiltInRegistries.BLOCK.get(e.getKey()), BuiltInRegistries.BLOCK.get(e.getValue()));   // ours: a metal form or an extra (calcite)
             }
             oldBlocks = m;
         }

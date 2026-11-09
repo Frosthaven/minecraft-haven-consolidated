@@ -28,6 +28,7 @@ public final class Aliases {
     private static final Map<ResourceLocation, ResourceLocation> FLUIDS = new LinkedHashMap<>();
     private static final Map<ResourceLocation, Fluid> FLUID_ART = new HashMap<>();   // our fluid id -> first old fluid present
     private static final List<ResourceLocation> ABSENT = new ArrayList<>();
+    private static final List<Extra> EXTRA = new ArrayList<>();
     private static boolean active;
 
     static void activate() {
@@ -36,22 +37,13 @@ public final class Aliases {
                 Item ours = Content.item(entry.id());
                 boolean block = entry.kind().isBlock();
                 for (ResourceLocation old : entry.replaces()) {
-                    boolean found = aliasItem(old, entry.id(), ours);
-                    if (block && BuiltInRegistries.BLOCK.containsKey(old)) {
-                        aliasBlock(old, entry.id());
-                        found = true;
-                    }
-                    if (!found) {
-                        // No longer registered (its mod is gone, or dropped the id in an update): alias the name only,
-                        // so stacks and blocks still saved under it load as ours instead of being deleted.
-                        ((AliasRegistry) BuiltInRegistries.ITEM).haven$alias(old, entry.id());
-                        if (block) {
-                            ((AliasRegistry) BuiltInRegistries.BLOCK).haven$alias(old, entry.id());
-                        }
-                        ABSENT.add(old);
-                    }
+                    alias(old, entry.id(), ours, block);
                 }
             }
+        }
+        loadModAliases();
+        for (Extra e : EXTRA) {
+            alias(e.old(), e.ours(), BuiltInRegistries.ITEM.get(e.ours()), e.block());
         }
         Map<Fluid, List<Block>> liquidBlocks = new HashMap<>();
         for (Block b : BuiltInRegistries.BLOCK) {
@@ -93,6 +85,64 @@ public final class Aliases {
         active = true;
         HavenConsolidated.LOG.info("Haven Consolidated: {} item id(s), {} block id(s) and {} fluid id(s) now resolve to ours; {} id(s) are no longer registered and resolve to ours by name{}",
                 ITEMS.size(), BLOCKS.size(), FLUIDS.size(), ABSENT.size(), ABSENT.isEmpty() ? "" : ": " + ABSENT);
+    }
+
+    /** Merges other mods declare: META-INF/haven_consolidated/aliases.json in their jar,
+     *  {"aliases": [{"old": "chipped:calcite_bricks", "new": "haven_backports:polished_calcite_bricks", "block": true}]}.
+     *  Read from the mod files directly (before any datapack), so the merge is in place when worlds and recipes load. */
+    private static void loadModAliases() {
+        for (net.neoforged.neoforgespi.language.IModFileInfo info : net.neoforged.fml.ModList.get().getModFiles()) {
+            java.nio.file.Path path = info.getFile().findResource("META-INF", "haven_consolidated", "aliases.json");
+            if (!java.nio.file.Files.isRegularFile(path)) {
+                continue;
+            }
+            try (java.io.Reader r = java.nio.file.Files.newBufferedReader(path)) {
+                com.google.gson.JsonObject root = com.google.gson.JsonParser.parseReader(r).getAsJsonObject();
+                for (com.google.gson.JsonElement el : root.getAsJsonArray("aliases")) {
+                    com.google.gson.JsonObject a = el.getAsJsonObject();
+                    extra(ResourceLocation.parse(a.get("old").getAsString()), ResourceLocation.parse(a.get("new").getAsString()),
+                            a.has("block") && a.get("block").getAsBoolean());
+                }
+                HavenConsolidated.LOG.info("Haven Consolidated: {} merge(s) declared by {}", root.getAsJsonArray("aliases").size(),
+                        info.getMods().isEmpty() ? info.getFile().getFileName() : info.getMods().get(0).getModId());
+            } catch (Exception e) {
+                HavenConsolidated.LOG.error("Haven Consolidated: unreadable {} in {}", path, info.getFile().getFileName(), e);
+            }
+        }
+    }
+
+    /** An id another mod merges its copies into (a merge target outside our own items). */
+    public static boolean isExtraTarget(ResourceLocation id) {
+        for (Extra e : EXTRA) {
+            if (e.ours().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** One more old id that becomes ours, outside the metal data files (another mod's merge, see loadModAliases). */
+    public static void extra(ResourceLocation old, ResourceLocation ours, boolean block) {
+        EXTRA.add(new Extra(old, ours, block));
+    }
+
+    private record Extra(ResourceLocation old, ResourceLocation ours, boolean block) {}
+
+    private static void alias(ResourceLocation old, ResourceLocation ours, Item oursItem, boolean block) {
+        boolean found = aliasItem(old, ours, oursItem);
+        if (block && BuiltInRegistries.BLOCK.containsKey(old)) {
+            aliasBlock(old, ours);
+            found = true;
+        }
+        if (!found) {
+            // No longer registered (its mod is gone, or dropped the id in an update): alias the name only,
+            // so stacks and blocks still saved under it load as ours instead of being deleted.
+            ((AliasRegistry) BuiltInRegistries.ITEM).haven$alias(old, ours);
+            if (block) {
+                ((AliasRegistry) BuiltInRegistries.BLOCK).haven$alias(old, ours);
+            }
+            ABSENT.add(old);
+        }
     }
 
     private static boolean aliasItem(ResourceLocation old, ResourceLocation ours, Item oursItem) {

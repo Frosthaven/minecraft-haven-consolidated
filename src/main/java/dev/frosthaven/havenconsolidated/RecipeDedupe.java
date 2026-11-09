@@ -57,7 +57,7 @@ public final class RecipeDedupe {
 
     private static boolean producesOurs(Recipe<?> recipe, HolderLookup.Provider registries) {
         ItemStack result = resultItem(recipe, registries);
-        if (result != null && !result.isEmpty() && Content.ITEM_BY_ID.containsKey(BuiltInRegistries.ITEM.getKey(result.getItem()))) {
+        if (result != null && !result.isEmpty() && (BuiltInRegistries.ITEM.getKey(result.getItem()).getNamespace().equals(HavenConsolidated.ID) || Aliases.isExtraTarget(BuiltInRegistries.ITEM.getKey(result.getItem())))) {
             return true;
         }
         for (FluidStack f : fluidResults(recipe)) {

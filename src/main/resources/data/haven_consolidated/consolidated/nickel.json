@@ -39,7 +39,7 @@
       "replaces": [
         "creatingspace:nickel_dust"
       ],
-      "art": "creatingspace:nickel_dust"
+      "art": "sprite"
     },
     {
       "form": "sheet",

@@ -10,7 +10,7 @@
         "creatingspace:coal_dust",
         "mekanism:dust_coal"
       ],
-      "art": "creatingspace:coal_dust"
+      "art": "mekanism:dust_coal"
     }
   ]
 }
