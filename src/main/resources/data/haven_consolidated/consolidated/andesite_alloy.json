@@ -1,0 +1,16 @@
+{
+  "metal": "andesite_alloy",
+  "name": "Andesite Alloy",
+  "entries": [
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:andesite_alloy_sheet",
+      "replaces": [
+        "createdeco:andesite_sheet",
+        "createcasing:andesite_sheet"
+      ],
+      "art": "createdeco:andesite_sheet"
+    }
+  ]
+}

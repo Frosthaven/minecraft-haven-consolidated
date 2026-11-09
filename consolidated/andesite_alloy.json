@@ -1,0 +1,2 @@
+{"metal": "andesite_alloy", "name": "Andesite Alloy", "art": ["createdeco", "createcasing"], "color": "#a9ab9f",
+ "forms": {"sheet": ["createdeco:andesite_sheet", "createcasing:andesite_sheet"]}}

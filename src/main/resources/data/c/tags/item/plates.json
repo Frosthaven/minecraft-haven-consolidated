@@ -2,7 +2,9 @@
   "replace": false,
   "values": [
     "#c:plates/aluminum",
+    "#c:plates/andesite_alloy",
     "#c:plates/cast_iron",
+    "#c:plates/industrial_iron",
     "#c:plates/iron",
     "#c:plates/lead",
     "#c:plates/nickel",

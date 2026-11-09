@@ -103,11 +103,22 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 
 ## 16. zinc
 
-- plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet
+- plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet, createcasing:zinc_sheet (Create Encased 1.9.0+, 2026-11-09)
 
 ## 17. coal
 
 - dusts (dup): creatingspace:coal_dust, mekanism:dust_coal (Creating Space 1.7.20 in the 12.8.0 pack, 2026-10-27)
+## 18. andesite_alloy
+
+- plates (dup): createdeco:andesite_sheet, createcasing:andesite_sheet (Create Encased 1.9.0+, 2026-11-09; its encased
+  block recipes take `c:plates/andesite_alloy`)
+
+## 19. industrial_iron
+
+- plates (dup): createdeco:industrial_iron_sheet, createcasing:industrial_iron_sheet (Create Encased 1.10.0+,
+  2026-11-09; `c:plates/industrial_iron`). Its weathered iron, shadow steel, refined radiance and chorium sheets and
+  chorium ingot have one source each: left alone.
+
 ## Fluids (built 2026-10-16, after the survey of fluid tags, names and buckets)
 
 Same mechanism as items: a fluid is stored everywhere as `{"id": "<fluid id>", "amount": n}` (NeoForge FluidStack codec,

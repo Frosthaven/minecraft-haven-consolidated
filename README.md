@@ -42,7 +42,7 @@ Both follow the same rule: a mob you hit fights back (for 5 seconds, vanilla's m
 | Lithium | ingot, nugget, raw, dust, ore, deepslate ore, block | TFMG, Create: Solarpunk, Mekanism |
 | Salt | salt, salt block | Mekanism, Create: Solarpunk |
 | Silicon | silicon, silicon block | AE2, Refined Storage, TFMG (silicon ingot), ExtendedAE (silicon block) |
-| Single forms | charcoal dust, coal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet | the mods that duplicated each |
+| Single forms | charcoal dust, coal dust, copper dust, copper wire, diamond dust, electrum wire, ender dust, iron sheet, iron rod, iron wire, powdered obsidian, niter, sawdust, zinc sheet, andesite alloy sheet, industrial iron sheet | the mods that duplicated each |
 | Fluids | crude oil, diesel, gasoline, plant oil, bioethanol (also Solarpunk's biofuel), dragon's breath, molten steel, hydrogen, oxygen, steam, deuterium, fertilizer | TFMG, Create Diesel Generators, Ad Astra, Crafts & Additions, Electro Energetics, Mekanism, Mekanism Generators, Create Big Cannons, Dragons Plus, Garnished, Deep Seas, Broken Bad, Create: Solarpunk, Slice & Dice |
 
 `consolidated/<metal>.json` and `consolidated/fluids/<fluid>.json` list what each one replaces; ids of mods that are

@@ -1,6 +1,7 @@
 {
   "metals": [
     "aluminum",
+    "andesite_alloy",
     "bronze",
     "cast_iron",
     "charcoal",
@@ -9,6 +10,7 @@
     "diamond",
     "electrum",
     "ender_pearl",
+    "industrial_iron",
     "iron",
     "lead",
     "lithium",

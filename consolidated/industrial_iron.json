@@ -1,0 +1,2 @@
+{"metal": "industrial_iron", "name": "Industrial Iron", "art": ["createdeco", "createcasing"], "color": "#6b6e70",
+ "forms": {"sheet": ["createdeco:industrial_iron_sheet", "createcasing:industrial_iron_sheet"]}}

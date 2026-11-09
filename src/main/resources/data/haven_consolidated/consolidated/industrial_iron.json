@@ -1,0 +1,16 @@
+{
+  "metal": "industrial_iron",
+  "name": "Industrial Iron",
+  "entries": [
+    {
+      "form": "sheet",
+      "kind": "item",
+      "id": "haven_consolidated:industrial_iron_sheet",
+      "replaces": [
+        "createdeco:industrial_iron_sheet",
+        "createcasing:industrial_iron_sheet"
+      ],
+      "art": "createdeco:industrial_iron_sheet"
+    }
+  ]
+}
