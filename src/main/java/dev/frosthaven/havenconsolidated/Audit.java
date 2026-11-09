@@ -137,12 +137,20 @@ public final class Audit {
                 failed.add(e.getKey() + " -> " + got);
             }
         }
+        for (ResourceLocation id : Aliases.absent()) {
+            ResourceLocation got = BuiltInRegistries.ITEM.getHolder(id).map(h -> h.key().location()).orElse(null);
+            if (got != null && got.getNamespace().equals(HavenConsolidated.ID)) {
+                ok++;
+            } else {
+                failed.add(id + " (unregistered) -> " + got);
+            }
+        }
         o.addProperty("items", Aliases.items().size());
         o.addProperty("blocks", Aliases.blocks().size());
         o.addProperty("fluids", Aliases.fluids().size());
         o.addProperty("resolve_ok", ok);
         o.add("resolve_failed", failed);
-        o.add("absent_mods_ids", strings(Aliases.absent()));
+        o.add("unregistered_ids", strings(Aliases.absent()));
         return o;
     }
 

@@ -42,6 +42,12 @@ public final class Aliases {
                         found = true;
                     }
                     if (!found) {
+                        // No longer registered (its mod is gone, or dropped the id in an update): alias the name only,
+                        // so stacks and blocks still saved under it load as ours instead of being deleted.
+                        ((AliasRegistry) BuiltInRegistries.ITEM).haven$alias(old, entry.id());
+                        if (block) {
+                            ((AliasRegistry) BuiltInRegistries.BLOCK).haven$alias(old, entry.id());
+                        }
                         ABSENT.add(old);
                     }
                 }
@@ -85,7 +91,7 @@ public final class Aliases {
             }
         }
         active = true;
-        HavenConsolidated.LOG.info("Haven Consolidated: {} item id(s), {} block id(s) and {} fluid id(s) now resolve to ours; {} id(s) belong to mods that are not loaded{}",
+        HavenConsolidated.LOG.info("Haven Consolidated: {} item id(s), {} block id(s) and {} fluid id(s) now resolve to ours; {} id(s) are no longer registered and resolve to ours by name{}",
                 ITEMS.size(), BLOCKS.size(), FLUIDS.size(), ABSENT.size(), ABSENT.isEmpty() ? "" : ": " + ABSENT);
     }
 
@@ -134,7 +140,7 @@ public final class Aliases {
         return FLUID_ART.get(ours);
     }
 
-    /** Ids from the data files whose mod is not loaded. */
+    /** Ids from the data files that nothing registers (mod not loaded, or the id was dropped): aliased by name only. */
     public static List<ResourceLocation> absent() {
         return Collections.unmodifiableList(ABSENT);
     }

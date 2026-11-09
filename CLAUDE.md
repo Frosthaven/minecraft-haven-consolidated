@@ -38,7 +38,9 @@ Runtime, in order:
    `addAlias` only answers for ids that are not registered, ours is consulted first in `resolve`, which every
    `get`/`getHolder` by name goes through). So stored stacks, recipe ingredients and results, loot entries, tag
    entries, worldgen block states and chunk palettes that name an old id all load as ours. The old item object also
-   learns its target (`ItemMixin`, `Aliased`).
+   learns its target (`ItemMixin`, `Aliased`). An old id that nothing registers (its mod is not loaded, or an update dropped it: Creating Space 1.7.23
+   dropped its coal and nickel dust) gets the name alias only, so stock still saved under it loads as ours instead of
+   being deleted; the audit lists these as `unregistered_ids` and checks they resolve.
 3. `ItemStackMixin`: the constructor every path ends in swaps an old item for ours (stacks built in code), and
    `stack.is(oldItem)` is true for our item (code asking "is this my ingot?" accepts ours).
 4. `RecipeManagerMixin` -> `RecipeDedupe` (after parsing, so every id is already ours): among the recipes whose
