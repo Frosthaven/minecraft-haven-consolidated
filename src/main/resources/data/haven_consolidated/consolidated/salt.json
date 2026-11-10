@@ -8,7 +8,9 @@
       "id": "haven_consolidated:salt",
       "replaces": [
         "mekanism:salt",
-        "solarpunk:salt"
+        "solarpunk:salt",
+        "garnished:crushed_salt",
+        "refurbished_furniture:sea_salt"
       ],
       "art": "mekanism:salt"
     },

@@ -1,6 +1,6 @@
 {"metal": "salt", "name": "Salt", "art": ["mekanism", "solarpunk"], "color": "#eeeeee", "tool": "stone",
  "names": {"block": "Salt Block"},
  "forms": {
-  "gem": ["mekanism:salt", "solarpunk:salt"],
+  "gem": ["mekanism:salt", "solarpunk:salt", "garnished:crushed_salt", "refurbished_furniture:sea_salt"],
   "block": ["mekanism:block_salt", "solarpunk:salt_block"]
  }}
