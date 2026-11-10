@@ -134,3 +134,9 @@ process name: the harness finds it by working folder.
 
 Push to `main`: CI runs the tests and publishes the rolling `latest` release and an immutable `v<mod_version>-<sha7>`
 release (the Haven pack pins one with `just bump-mod haven-consolidated`). Bump `mod_version` in `gradle.properties`.
+
+## Player page
+
+Players read about this mod on the Haven Codex, tab `#tab-consolidated` (https://claude.ai/artifact/QG2xPPxSAM2BQiovWVoGiF#tab-consolidated).
+Update that tab when a change alters what players see; publish to that URL in place (never a copy) when the
+maintainer asks. The pack repo's CLAUDE.md, "Haven's own mods and pages", lists what to check on a pack change.
