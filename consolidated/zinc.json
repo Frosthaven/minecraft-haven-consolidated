@@ -1,2 +1,2 @@
 {"metal": "zinc", "name": "Zinc", "art": ["createaddition", "createdeco", "createcasing"], "color": "#c9d2c2",
- "forms": {"sheet": ["createaddition:zinc_sheet", "createdeco:zinc_sheet", "createcasing:zinc_sheet"]}}
+ "forms": {"sheet": ["createaddition:zinc_sheet", "createdeco:zinc_sheet", "createcasing:zinc_sheet", "powergrid:zinc_sheet"]}}

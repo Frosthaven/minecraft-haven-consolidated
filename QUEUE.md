@@ -103,7 +103,7 @@ metal moves. Art: Create: Gunsmithing first where it has the metal (steel), else
 
 ## 16. zinc
 
-- plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet, createcasing:zinc_sheet (Create Encased 1.9.0+, 2026-11-09)
+- plates (dup): createaddition:zinc_sheet, createdeco:zinc_sheet, createcasing:zinc_sheet (Create Encased 1.9.0+, 2026-11-09), powergrid:zinc_sheet (Create: Power Grid 0.6.2, 2026-11-18; its copper, iron and gold wires stay its own: they are placeable connection wire with their own item class, not a crafting material)
 
 ## 17. coal
 

@@ -9,7 +9,8 @@
       "replaces": [
         "createaddition:zinc_sheet",
         "createdeco:zinc_sheet",
-        "createcasing:zinc_sheet"
+        "createcasing:zinc_sheet",
+        "powergrid:zinc_sheet"
       ],
       "art": "createaddition:zinc_sheet"
     }
