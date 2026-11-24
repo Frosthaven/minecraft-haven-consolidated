@@ -140,3 +140,18 @@ release (the Haven pack pins one with `just bump-mod haven-consolidated`). Bump 
 Players read about this mod on the Haven Codex, tab `#tab-consolidated` (https://claude.ai/artifact/QG2xPPxSAM2BQiovWVoGiF#tab-consolidated).
 Update that tab when a change alters what players see; publish to that URL in place (never a copy) when the
 maintainer asks. The pack repo's CLAUDE.md, "Haven's own mods and pages", lists what to check on a pack change.
+
+## Key hints (haven-create-ui-ux): check them on every feature change
+
+The hotbar mod (haven-create-ui-ux 1.6.0+, repo minecraft-create-ui-remix) shows **contextual key hints** (centered
+above the action bar: what the crosshair's target does with the held item) and **stateful key hints** (bottom right:
+what the player rides, holds and wears, with modes and fuel; the Escape menu's global keys). Each hint comes from the
+owning mod's own checks, called by class and method name (KeyRules, KeyCreate, KeyMods, KeyVanilla, KeyFluids), or from
+audited data (`mod/keyhints`, remade with its `scan.py` / `scan2.py` and `merge.py`).
+
+When this repo adds, removes or changes a right-click use, a held item's use, a key mapping, a mode, a worn device or
+a readout (fuel, charge, level), update the hints in minecraft-create-ui-remix in the same piece of work: a rule, or a
+data row, and a test scene. A rename of a class or method that a hint names by string fails silently (the hint just
+disappears), so search minecraft-create-ui-remix for the old name before a rename.
+
+This repo: an alias that replaces a block or item with ours keeps the hints only if ours has the same use code; check the replaced item's hint rows.
